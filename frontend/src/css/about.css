@@ -1,0 +1,16 @@
+.about{
+    background-image: url('../componets/images/about.jpg');
+    background-size: cover;
+	background-repeat: no-repeat;
+    background-position: center;
+	height: 200px;
+	position: relative;
+    padding: 150px;
+    z-index: -1;
+}
+#abts{
+    justify-content: center;
+    text-align: center;
+    font-style: italic;    
+
+}
