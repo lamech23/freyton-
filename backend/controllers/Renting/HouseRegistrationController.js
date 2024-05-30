@@ -7,31 +7,34 @@ const sequelize = require("sequelize");
 const { Op } = require("sequelize");
 const water = require("../../models/RentingModels/waterModel");
 const Details = require("../../models/UploadModals");
+const payments = require("../../models/RentingModels/additionalPaymentsModel");
+const balanceCf = require("../../models/balanceCF");
 
 // const users = require("../../models/UserModels.js");
 
 const getAllHouses = async (req, res) => {
-
   const page_size = 10;
   const page = parseInt(req.query.page) || 1;
-    const offset = (page - 1) * page_size;
-    const pageNumbers = [];
-
+  const offset = (page - 1) * page_size;
+  const pageNumbers = [];
 
   const details = await tenantRegistration.findAndCountAll({
     offset: offset,
     limit: page_size,
     where: {
-      houseId:  req.params.houseId
+      houseId: req.params.houseId,
     },
-    include:[
-      {model : users , as:'tenant'}
-    ]
+    include: [{ model: users, as: "tenant" }],
+  });
+  const tenant = await tenantRegistration.findAll({});
+
+  const tenantsId = tenant.map((data) => data.id);
+
+  const paymentData = await payments.findAll({
+    where: { userId: tenantsId },
   });
 
-
   try {
-    // Calculating the total expenses for each user
     const detailsWithTotal = details?.rows?.map((detail) => {
       const totalExpenses = [
         Number(detail.waterBill) || 0,
@@ -39,14 +42,13 @@ const getAllHouses = async (req, res) => {
         Number(detail.rentDeposit) || 0,
         Number(detail.garbage) || 0,
       ].reduce((acc, currentValue) => acc + currentValue, 0);
-      // water readings
       const totalWaterReadings = [
         Number(detail.prevReadings) || 0,
         Number(detail.currentReadings) || 0,
       ].reduce((acc, current) => current - acc, 0);
-      const balance =   Number(detail.rent)  - Number(detail.payableRent);
 
-     
+      const balance = Number(detail.rent) - Number(detail.payableRent);
+
       return {
         ...detail.dataValues,
         totalExpenses,
@@ -54,13 +56,12 @@ const getAllHouses = async (req, res) => {
         balance,
       };
     });
+
     const totalPages = Math.ceil(detailsWithTotal.length / page_size);
-    console.log(totalPages);
 
     for (let i = 1; i <= totalPages; i++) {
       pageNumbers.push(i);
     }
-
 
     res.status(200).json({
       detailsWithTotal,
@@ -69,15 +70,14 @@ const getAllHouses = async (req, res) => {
         totalPages: pageNumbers,
         currentPage: page,
         currentPosts: detailsWithTotal,
-      }
-    })
-   
+      },
+    });
+
     // res.status(200).json({ detailsWithTotal });
   } catch (error) {
     res.status(400).json(error.message);
   }
 };
-
 
 const subtotal = async (req, res) => {
   const { id } = req.params;
@@ -131,8 +131,7 @@ const getTenants = async (req, res) => {
       });
     }
 
-  res.status(200).json({tenatsHouse});
-
+    res.status(200).json({ tenatsHouse });
   } catch (error) {
     // res.status(400).json({ error: error.message });
   }
@@ -190,7 +189,7 @@ const getAllHousesByName = async (req, res) => {
         as: "houses",
       },
     });
-    res.status(200).json({details});
+    res.status(200).json({ details });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -211,8 +210,6 @@ const getHouseByHouseName = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-
-
 
 module.exports = {
   RegisteringHouse,

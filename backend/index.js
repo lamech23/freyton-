@@ -22,6 +22,7 @@ const paymentRequests =require('./Routes/RentingRoutes/paymentRequestRoutes.js')
 const TenantRegistering=require('./Routes/RentingRoutes/TenantRegistrationRoute.js')
 const account =require('./Routes/accountRoute.js')
 const loginProccess=require('./Routes/loginProccessRoutes.js')
+const bcf=require('./Routes/RentingRoutes/balanceCfRoute.js')
 const createCategory=require('./Routes/category.js')
 const propertyType=require('./Routes/propertyType.js')
 const bodyParser = require('body-parser');
@@ -92,6 +93,7 @@ app.use('/proccess',  loginProccess);
 app.use('/garbage',  garbagePrice);
 app.use('/payment',  paymentRequests);
 app.use('/Acc',  account);
+app.use('/balance-cf',  bcf);
 
 
 

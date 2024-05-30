@@ -5,7 +5,6 @@ import { ToastContainer, toast } from "react-toastify";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { api } from "../utils/Api";
 
-
 function AddingHouse() {
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
@@ -22,7 +21,6 @@ function AddingHouse() {
   const [houseName, setHouseName] = useState("");
   const [type, setType] = useState("");
   const [units, setUnits] = useState("");
-
 
   const handleCancle = () => {
     setStatus(false);
@@ -64,9 +62,7 @@ function AddingHouse() {
         title === "")
       ) {
         toast.error("All fields must field");
-      }
-      
-      else {
+      } else {
         const response = await api("/Details", "POST", {}, formData);
 
         setStatus(false);
@@ -335,6 +331,29 @@ function AddingHouse() {
                     htmlFor="house-name"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
+                    House prefix 
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      type="text"
+                      name="units"
+                      id="units"
+                      placeholder="e.g  a, b , house etc ."
+                      autoComplete="given-units"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      value={units}
+                      onChange={(e) => setUnits(e.target.value)}
+                    />
+                  </div>
+                </div>
+              ) : null}
+
+              {type == "renting" ? (
+                <div className="sm:col-span-3">
+                  <label
+                    htmlFor="house-name"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
                     house Units
                   </label>
                   <div className="mt-2">
@@ -342,7 +361,7 @@ function AddingHouse() {
                       type="text"
                       name="units"
                       id="units"
-                      placeholder="e.g. k-1, k2, k3, etc."
+                      placeholder="e.g 1...100 , etc."
                       autoComplete="given-units"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       value={units}

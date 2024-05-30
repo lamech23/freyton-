@@ -38,7 +38,9 @@ function Header() {
 
   const fetchRequests = async () => {
     const response = await axios.get(
-      "http://localhost:4000/proccess/fetchRequests"
+      // "http://localhost:4000/proccess/fetchRequests"
+      "https://winton.freytonhomes.com/proccess/fetchRequests"
+
     );
     setRequest(response.data.requests);
   };

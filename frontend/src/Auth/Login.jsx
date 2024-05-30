@@ -42,10 +42,8 @@ function Login() {
     setIsLoading(true);
 
     try {
-
-     
       // const response = await axios.post("https://winton.freytonhomes.com/Users/login", {
-        const response = await axios.post("http://localhost:4000/Users/login", {
+      const response = await axios.post("http://localhost:4000/Users/login", {
         email: email,
         password: password,
       });

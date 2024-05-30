@@ -72,8 +72,8 @@ function MoreDetails() {
       ) {
         return toast.error("All fields must be filled in order to submit");
       } else {
-        // const response = await axios.post("https://winton.freytonhomes.com/client", {
-          const response = await axios.post("http://localhost:4000/client", {
+        const response = await axios.post("https://winton.freytonhomes.com/client", {
+          // const response = await axios.post("http://localhost:4000/client", {
           names: names,
           email: email,
           phoneNumber: phoneNumber,
@@ -101,8 +101,8 @@ function MoreDetails() {
       return toast.error("you must select all fields");
     } else {
       const response = await axios.post(
-        // "https://winton.freytonhomes.com/ClientTour/tour ",
-        "http://localhost:4000/ClientTour/tour",
+        "https://winton.freytonhomes.com/ClientTour/tour ",
+        // "http://localhost:4000/ClientTour/tour",
         {
           selectedDate: selectedDate,
           time: time,
@@ -116,8 +116,8 @@ function MoreDetails() {
   const fetchDetails = async () => {
     const response = await axios.get(
       
-      // `https://winton.freytonhomes.com/?category=${category}`,
-      `http://localhost:4000/RelatedHouses/?category=${category}`,
+      `https://winton.freytonhomes.com/?category=${category}`,
+      // `http://localhost:4000/RelatedHouses/?category=${category}`,
       formData
     );
     setDetails(response.data);

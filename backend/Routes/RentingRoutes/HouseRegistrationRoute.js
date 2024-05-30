@@ -9,7 +9,7 @@ const{
     creatHouseCategory,
     getAllHousesByName,
     getTenantForTenantRegistration,
-    getHouseByHouseName
+    getHouseByHouseName,
 
 } =require('../../controllers/Renting/HouseRegistrationController')
 const { verifyToken } = require('../../middlleware/token')

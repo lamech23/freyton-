@@ -12,7 +12,6 @@ function PaymentView() {
     setpayments(response?.paymentsWithTenants);
   };
 
-
   useEffect(() => {
     fetchOpenpayments();
   }, []);

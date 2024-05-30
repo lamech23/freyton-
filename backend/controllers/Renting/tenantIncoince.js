@@ -1,26 +1,24 @@
 const nodemailer = require("nodemailer");
 
+const lease = async (tenant) => {
+  const companyName = "Freyton Property Agencies";
+  const companyAddress = "531 Main Street, Nairobi, Ruai";
+  const companyPhone = "+123 456 7890";
+  const companyEmail = "info@freatonproperty.com";
+  const companyLogoUrl = "https://example.com/logo.png";
 
-const lease = async(tenant) => {
- 
-    const companyName = "Freyton Property Agencies";
-    const companyAddress = "531 Main Street, Nairobi, Ruai";
-    const companyPhone = "+123 456 7890";
-    const companyEmail = "info@freatonproperty.com";
-    const companyLogoUrl = "https://example.com/logo.png";
-    
-    const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-            user: "lamechcruze@gmail.com",
-            pass: "fdbmegjxghvigklv",
-        },
-    });
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "lamechcruze@gmail.com",
+      pass: "fdbmegjxghvigklv",
+    },
+  });
 
-    const mailOptions = {
-        to: tenant.email,
-        subject: "Lease Agreement ",
-        html: `
+  const mailOptions = {
+    to: tenant.email,
+    subject: "Lease Agreement ",
+    html: `
         <div style="border-style: solid; border-color: #4CAF50; font-family: sans-serif; max-width: 42rem; margin-left: auto; margin-right: auto; padding: 2rem;">
         <img src="${companyLogoUrl}" alt="${companyName}" style="display: block; margin-left: auto; margin-right: auto; max-width: 20rem; margin-bottom: 2rem;">
         <h2 style="text-align: center; font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; color: #4CAF50;">Lease Agreement</h2>
@@ -72,16 +70,15 @@ const lease = async(tenant) => {
         <p style="text-align: center; color: #1E88E5;">Phone: ${companyPhone} | Email: ${companyEmail}</p>
         </div>
         `,
-    };
+  };
 
-   await transporter.sendMail(mailOptions, (err, response) => {
-        if (err) {
-            console.log("There was an error", err);
-        } else {
-            console.log("Email sent:", response);
-        }
-    });
-    
+  await transporter.sendMail(mailOptions, (err, response) => {
+    if (err) {
+      console.log("There was an error", err);
+    } else {
+      console.log("Email sent:", response);
+    }
+  });
 };
 
-module.exports = {lease}
+module.exports = { lease };

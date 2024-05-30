@@ -12,6 +12,7 @@ import { api } from "../utils/Api";
 import moment from "moment";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 import * as XLSX from "xlsx";
+import { LogarithmicScale } from "chart.js";
 
 function House() {
   const [tenant, setTenant] = useState([]);
@@ -38,6 +39,8 @@ function House() {
 
   const [pagination, setPagination] = useState({});
   const [pageNum, setPageNum] = useState(1);
+
+  const [bcf, setBcf] = useState([]);
   // Function to handle starting a new month
   const startNewMonth = (direction) => {
     const currentMoment = moment(currentMonth, "MMM");
@@ -126,8 +129,6 @@ function House() {
     getHouse();
     getAgent();
   }, [houseName, houseId]);
-
-  console.log(pagination);
 
   const handleNext = async () => {
     const nextPage = pagination.currentPage + 1;
@@ -258,6 +259,22 @@ function House() {
     }
   }, [visitedHouseId]);
 
+  // getting balance carried foward
+
+  useEffect(() => {
+    const getBcf = async (id) => {
+      try {
+        const res = await api(`/balance-cf/bcf/`, "GET", {}, {});
+        setBcf(res?.allAmount);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getBcf();
+  }, []);
+
+  console.log(bcf, "balance-carried-foward");
   const filteredProducts = pagination?.currentPosts?.filter((item) => {
     const matchesQuery = keys.some((key) => {
       const value = item[key];
@@ -639,7 +656,7 @@ function House() {
                 <th className="whitespace-nowrap px-2.5 py-3 text-sm font-normal text-[#212B36]">
                   Next_of_kin{" "}
                 </th>
-              
+
                 <th className="whitespace-nowrap px-2.5 py-3 text-sm font-normal text-[#212B36]">
                   balance C/F
                 </th>
@@ -653,6 +670,7 @@ function House() {
                 </th>
               </tr>
             </thead>
+
             {filteredProducts?.map((tenants, index) => (
               <tbody onClick={() => handleUser(tenants.id)}>
                 <tr
@@ -671,7 +689,6 @@ function House() {
                   <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
                     {tenants.payableRent}
                   </td>
-
                   <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
                     {moment(tenants.createdAt).format("MMM") !== currentMonth
                       ? 0
@@ -738,7 +755,7 @@ function House() {
                               <tr className="flex flex-row justify-around  items-center">
                                 <td className="    text-green-600">
                                   New Rent:{" "}
-                                  {moment(tenants.createdAt).format("MMM") !==
+                                  {moment(tenants.createdAt).format("MMM") ===
                                   currentMonth
                                     ? totalAmount + 0
                                     : totalAmount + Number(tenants.rent)}
@@ -769,17 +786,18 @@ function House() {
                     {getWater &&
                       getWater?.map((house) => house.price).slice(-1)[0]}
                   </td>
-
                   <td
                     className={`  ${
                       moment(tenants.createdAt).format("MMM") !== currentMonth
-                      ? "text-green-600"
+                        ? "text-green-600"
                         : "text-red-600"
                     }`}
                   >
-                    {moment(tenants.createdAt).format("MMM") !== currentMonth
-                      ? 0
-                      : tenants?.totalWaterReadings * waterUnits}
+                    {moment(tenants.createdAt).format("MMM") === currentMonth
+                      ? tenants?.totalWaterReadings < 0
+                        ? 0 * waterUnits
+                        : tenants?.totalWaterReadings * waterUnits
+                      : 0}
                   </td>
                   <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
                     {tenants.previousBalance}
@@ -794,66 +812,62 @@ function House() {
                   <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
                     {tenants.nextOfKingNumber}
                   </td>
+                  <td className="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
+                    {(() => {
+                      const currentMonthPayments = bcf
+                        .filter((item) => item.tenatId === tenants.id)
+                     
+                        .map((item) => item.amount)
+                        .reduce((prev, next) => prev + next, 0);
 
-                 
-                  <td
-                    className={` rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]  ${
-                      tenants?.balance +
-                        (payments &&
-                          Object.values(payments)
-                            .map((paymentData, index) => {
-                              const matchingObjects = Object.values(
-                                paymentData
-                              ).filter((obj) => obj.userId === tenants.id);
+                      const totalWaterReadings =
+                        tenants?.totalWaterReadings * waterUnits || 0;
 
-                              if (matchingObjects.length > 0) {
-                                const totalAmount = matchingObjects.reduce(
-                                  (sum, obj) => sum + Number(obj.amount),
-                                  0
-                                );
-                                return totalAmount;
-                              }
+                      const latestPaymentMonth = moment(
+                        bcf
+                          .filter((item) => item.tenatId === tenants.id)
+                          .map((item) => item.createdAt)
+                          .sort((a, b) => moment(b).diff(a))[0]
+                      ).format("MMM");
 
-                              return 0;
-                            })
-                            .reduce(
-                              (sum, totalAmount) => sum + totalAmount,
-                              0
-                            )) -
-                        tenants?.totalWaterReadings * waterUnits >=
-                      0
-                        ? "text-green-600"
-                        : "text-red-600  "
-                    }`}
-                  >
-                    {
-                    tenants?.balance +
-                      (payments &&
-                        Object.values(payments)
-                          .map((paymentData, index) => {
-                            const matchingObjects = Object.values(
-                              paymentData
-                            ).filter((obj) => obj.userId === tenants.id);
+                      const isNewMonth = currentMonth !== latestPaymentMonth;
 
-                            if (matchingObjects.length > 0) {
-                              const totalAmount = matchingObjects.reduce(
-                                (sum, obj) => sum + Number(obj.amount),
-                                0
-                              );
-                              return totalAmount;
-                            }
+                      const totalAmount =
+                        currentMonthPayments -
+                        Number(tenants.payableRent) -
+                        (totalWaterReadings <= 0 ? 0 : totalWaterReadings);
+                        console.log(totalAmount, "<- this payments ")
 
-                            return 0;
-                          })
-                          .reduce((sum, totalAmount) => sum + totalAmount, 0)) -
+                        
+                       
+
+                      const adjustedAmount = isNewMonth
+                        ? totalAmount   -( Number(tenants.payableRent))  
+                        : totalAmount;
+
+                      return adjustedAmount;
+                    })()}
+                  </td>
+                  {/* <td className="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
+                    {bcf
+                      .filter((item) => item.tenatId === tenants.id)
+                      .filter((payment) => {
+                        const isCurrentMonth =
+                          moment(payment.createdAt).format("MMM") ===
+                          currentMonth;
+
+                        return isCurrentMonth;
+                      })
+                      .map((item) => item.amount)
+                      .reduce((prev, next) => prev + next, 0) -
+                      tenants.rent -
                       (tenants?.totalWaterReadings * waterUnits <= 0
                         ? 0
                         : tenants?.totalWaterReadings * waterUnits)}
-                  </td>
+                  </td>{" "} */}
                   <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
                     {tenants.totalExpenses}
                   </td>
-
                   <td>
                     <Link
                       to={`/RegisterTenant/?edit=${tenants.id}`}
