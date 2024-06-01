@@ -1,3 +1,7 @@
+
+
+
+import axios from "axios";
 import React, { useEffect, useId, useState } from "react";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { Calendar } from "primereact/calendar";
@@ -5,7 +9,7 @@ import { Calendar } from "primereact/calendar";
 import { api } from "../utils/Api";
 import { ToastContainer, toast } from "react-toastify";
 
-function AdditinalPaymants() {
+function ContinuousPayment() {
   let houseId = useLocation().pathname.split("/")[2];
   let userId = useLocation().state
   const [dateTime, setDateTime] = useState({});
@@ -15,6 +19,7 @@ function AdditinalPaymants() {
   const [updatedUsers, setUpdatedUsers] = useState({});
 
   const [tenant, setTenant] = useState([]);
+
 
   useEffect(() => {
     const getTenantinfo = async () => {
@@ -38,20 +43,20 @@ function AdditinalPaymants() {
       dateTime: values.dateTime,
     }));
     const response = await api(
-      "/Tenant/registerPayment/",
+      "/Tenant/cont-payment/",
       "POST",
       {},
       { updatedPayment }
     );
 
     if (response) {
-      toast.success("payment added ");
+      toast.success("payment created  ");
     }
   };
   return (
     <>
       <div className=" px-20 py-20  w-full p-6 bg-base-100 shadow-xl">
-        <p className="text-lg font-serif text-green-500">Additional Payment</p>
+        <p className="text-lg font-serif text-green-500">Continous  Payment</p>
         <div className="divider mt-2"></div>
         {/* Team Member list in table format loaded constant */}
         <div className="overflow-x-auto w-full">
@@ -67,23 +72,32 @@ function AdditinalPaymants() {
                 <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-black">
                   Tenant Name{" "}
                 </th>
+
                 <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-black">
-                  payments
+                  Rent {" "}
                 </th>
+                <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-black">
+                  previous balance 
+                </th>
+                <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-black">
+                  amount 
+                </th>
+
                 <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-black">
                   Paid Date
                 </th>
                 <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-black">
                   PaymentType
                 </th>
+
               </tr>
             </thead>
-              {tenant?.map((tenants) => (
-            <tbody class={` ${
+              {tenant?.map((tenants, index ) => (
+            <tbody key={index} class={` ${
               tenants.id == (userId) ?  ' bg-gradient-to-r from-green-400  via-green-500 to-green-700 ': 'bg-white'
             }` }>
               {" "}
-                <tr key={tenants.id}>
+                <tr>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black">
                     {tenants.id}
                   </td>
@@ -93,6 +107,14 @@ function AdditinalPaymants() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black">
                     {tenants.tenantsName}
+                  </td>
+
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black">
+                    {tenants.payableRent}
+                  </td>
+
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black">
+                    {tenants.previousBalance}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black">
                     <input
@@ -149,6 +171,7 @@ function AdditinalPaymants() {
                       <option value="cash">Cash</option>
                     </select>
                   </td>
+                 
                 </tr>
             </tbody>
               ))}
@@ -181,4 +204,4 @@ function AdditinalPaymants() {
   );
 }
 
-export default AdditinalPaymants;
+export default ContinuousPayment;

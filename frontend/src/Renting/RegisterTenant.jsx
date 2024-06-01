@@ -19,6 +19,8 @@ function RegisterTenant({ visitedHouseId, tenant, closeModal, setIsOpen }) {
   const [waterReading, setWaterReadiing] = useState(state?.waterReading || "");
   const [userName, setUserName] = useState(state?.phoneNumber || "");
   const [phoneNumber, setPhoneNumber] = useState(state?.phoneNumber || "");
+  const [waterDeposite, setWaterDeposite] = useState(state?.waterDeposite || "");
+  
 
   const [prevReadings, setPrevReadings] = useState(state?.prevReadings || "");
   const [currentReadings, setCurrentReadings] = useState(
@@ -83,11 +85,13 @@ function RegisterTenant({ visitedHouseId, tenant, closeModal, setIsOpen }) {
         {},
         {}
       );
-      setTenantInformation(response.alltenants);
+      setTenantInformation(response?.alltenants);
     } catch (error) {
       console.log(error);
     }
   };
+
+  console.log(tenantInfo);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -199,7 +203,7 @@ function RegisterTenant({ visitedHouseId, tenant, closeModal, setIsOpen }) {
                   type="text"
                   name="houseName"
                   id=""
-                  class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
+                  class="block p-10 w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
                   placeholder=""
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -220,7 +224,7 @@ function RegisterTenant({ visitedHouseId, tenant, closeModal, setIsOpen }) {
                 </select>
               </div>
 
-              <div class="sm:col-span-3">
+              <div className="sm:col-span-3">
                 <label for="" className="form-label">
                   {" "}
                   Tenant Name
@@ -229,14 +233,14 @@ function RegisterTenant({ visitedHouseId, tenant, closeModal, setIsOpen }) {
                   type="text"
                   name="tenantName"
                   id="house_name"
-                  class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
+                  class="block p-10 w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
                   placeholder=""
                   value={tenantsName}
                   onChange={(e) => setTenantsName(e.target.value)}
                 />
               </div>
 
-              <div class="sm:col-span-3">
+              <div className="sm:col-span-3">
                 <label for="" className="form-label">
                   House No
                 </label>
@@ -244,14 +248,14 @@ function RegisterTenant({ visitedHouseId, tenant, closeModal, setIsOpen }) {
                   type="text"
                   name="houseNumber"
                   id=""
-                  class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
+                  class="block p-10 w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
                   placeholder=""
                   value={houseNumber}
                   onChange={(e) => setHouseNumber(e.target.value)}
                 />
               </div>
 
-              <div class="sm:col-span-3">
+              <div className="sm:col-span-3">
                 <label for="" className="form-label">
                   payable Rent
                 </label>
@@ -259,13 +263,13 @@ function RegisterTenant({ visitedHouseId, tenant, closeModal, setIsOpen }) {
                   type="number"
                   name="rent"
                   id=""
-                  class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
+                  class="block p-10 w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
                   placeholder=""
                   value={payableRent}
                   onChange={(e) => setPaybleRent(e.target.value)}
                 />
               </div>
-              <div class="sm:col-span-3">
+              <div className="sm:col-span-3">
                 <label for="" className="form-label">
                   Rent
                 </label>
@@ -273,7 +277,7 @@ function RegisterTenant({ visitedHouseId, tenant, closeModal, setIsOpen }) {
                   type="number"
                   name="rent"
                   id=""
-                  class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
+                  class="block p-10 w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
                   placeholder=""
                   value={rent}
                   onChange={(e) => setRent(e.target.value)}
@@ -294,7 +298,7 @@ function RegisterTenant({ visitedHouseId, tenant, closeModal, setIsOpen }) {
                   </div>
                 </div>
               ) : null}
-              <div class="sm:col-span-3">
+              <div className="sm:col-span-3">
                 <label for="" className="form-label">
                   Rent Deposit
                 </label>
@@ -302,13 +306,13 @@ function RegisterTenant({ visitedHouseId, tenant, closeModal, setIsOpen }) {
                   type="number"
                   name="rentDeposit"
                   id=""
-                  class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
+                  className="block  w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
                   placeholder=""
                   value={rentDeposit}
                   onChange={(e) => setRentDeposit(e.target.value)}
                 />
               </div>
-              <div class="sm:col-span-3">
+              <div className="sm:col-span-3">
                 <label for="" className="form-label">
                   Water reading
                 </label>
@@ -317,10 +321,26 @@ function RegisterTenant({ visitedHouseId, tenant, closeModal, setIsOpen }) {
                   type="number"
                   name="waterReading"
                   id=""
-                  class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
+                  class="block  w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
                   placeholder=""
                   value={waterReading}
                   onChange={(e) => setWaterReadiing(e.target.value)}
+                />
+              </div>
+
+              <div className="sm:col-span-3">
+                <label for="" className="form-label">
+                  Water Deposite
+                </label>
+
+                <input
+                  type="number"
+                  name="waterReading"
+                  id=""
+                  class="block  w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
+                  placeholder=""
+                  value={waterDeposite}
+                  onChange={(e) => setWaterDeposite(e.target.value)}
                 />
               </div>
 
@@ -332,14 +352,14 @@ function RegisterTenant({ visitedHouseId, tenant, closeModal, setIsOpen }) {
                   type="number"
                   name="previousBalance"
                   id=""
-                  class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
+                  class="block  w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
                   placeholder=""
                   value={previousBalance}
                   onChange={(e) => setPreviousBalance(e.target.value)}
                 />
               </div>
 
-              <div class="sm:col-span-3">
+              <div className="sm:col-span-3">
                 <label for="" className="form-label">
                   User name
                 </label>
@@ -347,14 +367,14 @@ function RegisterTenant({ visitedHouseId, tenant, closeModal, setIsOpen }) {
                   type="text"
                   name="userName"
                   id=""
-                  class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
+                  class="block  w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
                   placeholder=""
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
                 />
               </div>
 
-              <div class="sm:col-span-3">
+              <div className="sm:col-span-3">
                 <label for="" className="form-label">
                   Phone Number
                 </label>
@@ -362,28 +382,28 @@ function RegisterTenant({ visitedHouseId, tenant, closeModal, setIsOpen }) {
                   type="number"
                   name="phoneNumber"
                   id=""
-                  class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
+                  className="block  w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
                   placeholder=""
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
                 />
               </div>
-              <div class="sm:col-span-3">
+              <div className="sm:col-span-3">
                 <label for="" className="form-label">
-                  Next Of King
+                  Next Of Kin
                 </label>
                 <input
                   type="number"
                   name="nextOfKingNumber"
                   id=""
-                  class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
+                  className="block  w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
                   placeholder=""
                   value={nextOfKingNumber}
                   onChange={(e) => setNextOfKingNumber(e.target.value)}
                 />
               </div>
 
-              <div class="sm:col-span-3">
+              <div className="sm:col-span-3">
                 <label for="" className="form-label">
                   prev readings
                 </label>
@@ -391,14 +411,14 @@ function RegisterTenant({ visitedHouseId, tenant, closeModal, setIsOpen }) {
                   type="text"
                   name="prevReading"
                   id=""
-                  class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
                   placeholder=""
                   value={prevReadings}
                   onChange={(e) => setPrevReadings(e.target.value)}
                 />
               </div>
               {state && (
-                <div class="sm:col-span-3 space-y-6">
+                <div className="sm:col-span-3 space-y-6">
                   <div>
                     <label for="" className="form-label">
                       current Reading
@@ -407,7 +427,7 @@ function RegisterTenant({ visitedHouseId, tenant, closeModal, setIsOpen }) {
                       type="text"
                       name="currentReadings"
                       id=""
-                      class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
+                      className="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
                       placeholder=""
                       value={currentReadings}
                       onChange={(e) => setCurrentReadings(e.target.value)}

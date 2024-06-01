@@ -55,6 +55,7 @@ import { getAccessTokenFromCookie, getUserRoles } from "./utils/AccesToken";
 import ChangeProfile from "./user/ChangeProfile";
 import SignUpProcess from "./componets/SignUpProcess";
 import AllRequest from "./componets/AllRequest";
+import ContinuousPayment from "./Renting/ContinuousPayment";
 
 const DashLayout = lazy(() => import("./Dashboard/Layout"));
 const ProfileLayout = lazy(() => import("./Profile/Layout"));
@@ -280,12 +281,11 @@ function App() {
               }
             />
 
-            <Route
-              path="/landowner/*"
-              element={
-                <Landowner/>
-              }
-            />
+            <Route path="/landowner/*" element={<Landowner />} />
+
+            <Route path="/continuous-payment/:id" element={<ContinuousPayment />} />
+
+
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </div>

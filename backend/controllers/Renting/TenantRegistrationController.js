@@ -7,6 +7,7 @@ const { lease } = require("./tenantIncoince");
 const balanceCf = require("../../models/balanceCF");
 const { where } = require("sequelize");
 const water = require("../../models/RentingModels/waterModel");
+const continousPayments = require("../../models/RentingModels/continousPaymentModel");
 
 const tenatRegistration = async (req, res) => {
   const {
@@ -16,8 +17,7 @@ const tenatRegistration = async (req, res) => {
     email,
     rentDeposit,
     waterReading,
-    waterBill,
-    garbage,
+    waterDeposit,
     userName,
     phoneNumber,
     previousBalance,
@@ -51,6 +51,7 @@ const tenatRegistration = async (req, res) => {
         email,
         rentDeposit,
         waterReading,
+        waterDeposit,
         userName,
         houseName,
         rentPaymentDate,
@@ -140,6 +141,68 @@ const paymentsCreations = async (req, res) => {
 
       // Create a payment for the current user
       const paymentData = await payments.create({
+        amount: amount,
+        paymentType: paymentType,
+        dateTime: dateTime,
+        userId: id,
+      });
+      // const tenantsId = tenant.map((data) => data.id);
+
+      const tenantInfo = await tenantRegistration.findOne({
+        where: {
+          id: id,
+        },
+      });
+
+      // const totalWaterReadings =
+      //   tenantInfo.currentReadings - tenantInfo.prevReadings;
+
+      // const getWater = await water.findAll({
+      //   where: {
+      //     house_id: tenantInfo.houseId,
+      //   },
+      // });
+
+      // const waterRate = getWater?.map((data) => data.price).slice(-1)[0];
+
+      const balances = balanceCf.create({
+        where: {
+          tenatId: id,
+        },
+        amount: amount,
+        tenatId: id,
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
+const ContinousPaymentsCreations = async (req, res) => {
+  const { updatedPayment } = req.body;
+
+  try {
+    const updatedPaymentArray = Object.values(updatedPayment);
+    const tenant = await tenantRegistration.findAll({
+      where: {
+        houseId: 2,
+      },
+    });
+
+    // Iterate over user IDs and create payments for each user
+    for (const tenantUpdate of updatedPaymentArray) {
+      const { id, amount, paymentType, dateTime } = tenantUpdate;
+
+      // Create a payment for the current user
+      const paymentData = await continousPayments.create({
         amount: amount,
         paymentType: paymentType,
         dateTime: dateTime,
@@ -299,6 +362,8 @@ const updateWaterBill = async (req, res) => {
           { currentReadings },
           { where: { tenant_id: id } }
         );
+
+     
       }
 
       // Update the fields in the tenantRegistration table
@@ -365,4 +430,5 @@ module.exports = {
   deleteTenant,
   fetchAllAdditinalPaymentsForDashboard,
   getallTeants,
+  ContinousPaymentsCreations
 };

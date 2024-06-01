@@ -274,7 +274,6 @@ function House() {
     getBcf();
   }, []);
 
-  console.log(bcf, "balance-carried-foward");
   const filteredProducts = pagination?.currentPosts?.filter((item) => {
     const matchesQuery = keys.some((key) => {
       const value = item[key];
@@ -516,6 +515,15 @@ function House() {
               href="/"
             >
               bill water
+            </Link>
+
+            <Link
+              to={`/continuous-payment/${visitedHouseId}`}
+              state={getWater}
+              className="block no-underline rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700 capitalize"
+            >
+              Continous Payment 
+              
             </Link>
 
             <Link
@@ -795,8 +803,8 @@ function House() {
                   >
                     {moment(tenants.createdAt).format("MMM") === currentMonth
                       ? tenants?.totalWaterReadings < 0
-                        ? 0 * waterUnits
-                        : tenants?.totalWaterReadings * waterUnits
+                        ? 0 * Number(waterUnits)
+                        : tenants?.totalWaterReadings * Number(waterUnits)
                       : 0}
                   </td>
                   <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
@@ -816,7 +824,7 @@ function House() {
                     {(() => {
                       const currentMonthPayments = bcf
                         .filter((item) => item.tenatId === tenants.id)
-                     
+
                         .map((item) => item.amount)
                         .reduce((prev, next) => prev + next, 0);
 
@@ -836,35 +844,16 @@ function House() {
                         currentMonthPayments -
                         Number(tenants.payableRent) -
                         (totalWaterReadings <= 0 ? 0 : totalWaterReadings);
-                        console.log(totalAmount, "<- this payments ")
-
-                        
-                       
+                      console.log(totalAmount, "<- this payments ");
 
                       const adjustedAmount = isNewMonth
-                        ? totalAmount   -( Number(tenants.payableRent))  
+                        ? totalAmount - Number(tenants.payableRent)
                         : totalAmount;
 
                       return adjustedAmount;
                     })()}
                   </td>
-                  {/* <td className="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                    {bcf
-                      .filter((item) => item.tenatId === tenants.id)
-                      .filter((payment) => {
-                        const isCurrentMonth =
-                          moment(payment.createdAt).format("MMM") ===
-                          currentMonth;
 
-                        return isCurrentMonth;
-                      })
-                      .map((item) => item.amount)
-                      .reduce((prev, next) => prev + next, 0) -
-                      tenants.rent -
-                      (tenants?.totalWaterReadings * waterUnits <= 0
-                        ? 0
-                        : tenants?.totalWaterReadings * waterUnits)}
-                  </td>{" "} */}
                   <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
                     {tenants.totalExpenses}
                   </td>

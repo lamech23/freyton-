@@ -341,8 +341,8 @@ function AddingHouse() {
                       placeholder="e.g  a, b , house etc ."
                       autoComplete="given-units"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={units}
-                      onChange={(e) => setUnits(e.target.value)}
+                      // value={units}
+                      // onChange={(e) => setUnits(e.target.value)}
                     />
                   </div>
                 </div>
