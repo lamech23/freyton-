@@ -64,11 +64,11 @@ function Header() {
         <div>
           <Link
             to={"/requests"}
-            className=" relative material-symbols-outlined"
+            className=" relative material-symbols-outlined right-3"
           >
             notifications
           </Link>
-          <button className="absolute -top-3 right-14 text-center bg-red-200 cursor-pointer  text-red-600 text-2xl w-8 border rounded-full">
+          <button className="absolute -top-1 right-20 text-center cursor-pointer  text-red-600 text-2xl w-4 h-4 rounded-full">
             {requestLenght}
           </button>
         </div>

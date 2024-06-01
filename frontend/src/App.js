@@ -261,17 +261,6 @@ function App() {
               }
             />
 
-            <Route
-              path="/admin/*"
-              element={
-                (isAuthenticated && adminAuthenticate()) ||
-                agentAuthenticate() ? (
-                  <DashLayout />
-                ) : (
-                  <Navigate to="/" />
-                )
-              }
-            />
 
             <Route
               path="/account/*"

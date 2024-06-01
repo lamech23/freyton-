@@ -28,40 +28,26 @@ function AllPosts() {
 
   return (
     <>
-      <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-200 dark:text-gray-400">
+    <div className="card w-full p-6 bg-base-100 shadow-xl ">
+    <p>List Of Posts</p>
+    <div className="divider mt-2"></div>
+    <div className="overflow-x-auto w-full">
+       <table className="table w-full">
+          <thead>
             <tr>
-              <th scope="col" class="px-16 py-3">
-                <span class="">Image</span>
-              </th>
-              <th scope="col" class="px-6 py-3">
-                HouseName
-              </th>
-
-              <th scope="col" class="px-6 py-3">
-                LandLord
-              </th>
-              <th scope="col" class="px-6 py-3">
-                Property Type
-              </th>
-
-              <th scope="col" class="px-6 py-3">
-                Units
-              </th>
-
-              <th scope="col" class="px-6 py-3">
-                Category
-              </th>
-              <th scope="col" class="px-6 py-3">
-                Price
-              </th>
+              <th><span>Image</span> </th>
+              <th>House Name</th>
+              <th> Landlord</th>
+              <th> Property Type</th>
+              <th> Units</th>
+              <th> Category</th>
+              <th>Delete</th>
             </tr>
           </thead>
 
           {details?.map((house, index) => (
             <tbody key={index}>
-              <tr class="bg-white border-b  dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-100">
+              <tr class=" ">
                 {house?.images?.map(
                   (img, imgIndex) =>
                     imgIndex === 0 && (
@@ -75,23 +61,12 @@ function AllPosts() {
                     )
                 )}
 
-                <td class="px-6 py-4 font-semibold text-gray-900 ">
-                  {house.houseName}
-                </td>
+                <td>  {house.houseName}</td>
+                <td>{house.houses.email}</td>
+                <td>{house.type}</td>
 
-                <td class="px-6 py-4 font-semibold text-gray-900 ">
-                  {house.houses.email}
-                </td>
-                <td class="px-6 py-4 font-semibold text-gray-900 ">
-                  {house.type}
-                </td>
-
-                <td class="px-6 py-4 font-semibold text-gray-900 ">
-                  {house.units}
-                </td>
-                <td class="px-6 py-4 font-semibold text-gray-900 ">
-                  {house.category}
-                </td>
+                <td> {house.units}</td>
+                <td> {house.category}</td>
                 <td class="px-6 py-4">
                   <button
                   onClick={()=>handleDeletePost(house.id)}
@@ -99,11 +74,12 @@ function AllPosts() {
                   >
                     Delete
                   </button>
-                </td>
+                  </td>
               </tr>
             </tbody>
           ))}
         </table>
+        </div>
       </div>
       <ToastContainer
         position="top-left"

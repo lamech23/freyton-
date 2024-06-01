@@ -2,14 +2,14 @@
 
 import { lazy } from 'react'
 
+const Status = lazy(() => import('../LandOwner/Stats'))
+const AllHouses = lazy(() => import('../LandOwner/AllHouses'))
 const Category = lazy(() => import('../Admin/Category'))
 const ClientContactUs = lazy(() => import('../Admin/ClientContactUs'))
 const HelpCenterAdmin = lazy(() => import('../Admin/HelpCenterAdmin'))
 const NewsLetter = lazy(() => import('../Admin/NewsLetter'))
 const propertyType = lazy(() => import('../Admin/PropertType'))
-const AllHouses = lazy(() => import('../Renting/AllHouses'))
 const AddHouses = lazy(() => import('../Admin/AddHouse'))
-const Status = lazy(() => import('../Admin/Stats'))
 const User = lazy(() => import('../Admin/User'))
 const CreateUser = lazy(() => import('../Admin/CreateUser'))
 const allPosts = lazy(() => import('../Renting/AllPosts'))
@@ -22,8 +22,8 @@ const routes = [
     component: Status,
   },
   {
-    path: '/User',
-    component: User,
+    path: '/houses',
+    component: AllHouses,
   },
   {
     path: '/createUser',
