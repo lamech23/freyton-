@@ -39,6 +39,7 @@ function House() {
 
   const [pagination, setPagination] = useState({});
   const [pageNum, setPageNum] = useState(1);
+  const [contPayment, setContPayment] = useState([]);
 
   const [bcf, setBcf] = useState([]);
   // Function to handle starting a new month
@@ -259,6 +260,21 @@ function House() {
     }
   }, [visitedHouseId]);
 
+  //getting continous payment
+
+  const handleFetchPayments = async (id) => {
+    
+    try {
+      const response = await api(`/Tenant/all-cont-payments/?userId=${id}`, "GET", {}, {});
+      setContPayment(response?.payment);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const checkAmount = contPayment?.map((item)=> item.amount == ""  )
+
+
   // getting balance carried foward
 
   useEffect(() => {
@@ -272,6 +288,7 @@ function House() {
     };
 
     getBcf();
+    handleFetchPayments();
   }, []);
 
   const filteredProducts = pagination?.currentPosts?.filter((item) => {
@@ -522,8 +539,7 @@ function House() {
               state={getWater}
               className="block no-underline rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700 capitalize"
             >
-              Continous Payment 
-              
+              Continous Payment
             </Link>
 
             <Link
@@ -680,6 +696,10 @@ function House() {
             </thead>
 
             {filteredProducts?.map((tenants, index) => (
+                contPayment && contPayment?.find((amnt)=>
+                  amnt.userId == tenants.id
+                ) ? 
+
               <tbody onClick={() => handleUser(tenants.id)}>
                 <tr
                   key={index}
@@ -885,6 +905,8 @@ function House() {
                   </td>
                 </tr>
               </tbody>
+
+              : null 
             ))}
           </table>
           <div className="flex flex-row justify-center items-center  gap-4">

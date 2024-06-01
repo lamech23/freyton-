@@ -401,6 +401,29 @@ const getallTeants = async (req, res) => {
   }
 };
 
+const getContinousPayment = async(req, res) =>{
+const tenant = await tenantRegistration.findAll({});
+const tenantsId = tenant.map((data) => data.id);
+
+const payment = await continousPayments.findAll({
+  where: {
+    userId: tenantsId 
+  }
+})
+
+if(payment){
+  res.status(200).json({
+    success:true,
+    payment
+  })
+}else{
+  res.status(404).json({
+    success:false,
+    error: error.message
+  })
+}
+}
+
 const deleteTenant = async (req, res) => {
   try {
     const id = req.query.id;
@@ -430,5 +453,6 @@ module.exports = {
   deleteTenant,
   fetchAllAdditinalPaymentsForDashboard,
   getallTeants,
-  ContinousPaymentsCreations
+  ContinousPaymentsCreations,
+  getContinousPayment
 };

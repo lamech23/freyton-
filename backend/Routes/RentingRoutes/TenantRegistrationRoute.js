@@ -10,6 +10,7 @@ const {
   deleteTenant,
   fetchAllAdditinalPaymentsForDashboard,
   getallTeants,
+  getContinousPayment,
 
   ContinousPaymentsCreations,
 } = require("../../controllers/Renting/TenantRegistrationController");
@@ -25,6 +26,7 @@ router.patch("/change/:id", verifyToken, hasAdmin, tentantUpdating);
 router.put("/updateWaterBill", verifyToken, hasAdmin, updateWaterBill);
 router.get("/fetchPayment/", verifyToken, hasAdmin, getPayments);
 router.get("/all-tenants", verifyToken, hasAdmin, getallTeants);
+router.get("/all-cont-payments", verifyToken, hasAdmin, getContinousPayment);
 router.get(
   "/payments-analytics/",
   verifyToken,
