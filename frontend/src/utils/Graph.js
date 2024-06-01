@@ -111,8 +111,8 @@ const UserGraph = ({ users }) => {
 
 const Graph = ({ users }) => {
   return (
-    <div className="mt-4">
-      <div className="  shadow-xl rounded-lg p-4 mt-20 mb-20   lg:w-[60rem]">
+    <div className="">
+      <div className="bg-white  shadow-xl rounded-lg p-4 mb-10   lg:w-[60rem]">
         <UserGraph users={users} />
       </div>
       

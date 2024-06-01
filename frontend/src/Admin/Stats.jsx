@@ -210,27 +210,29 @@ function Stats() {
         <div className="grid lg:grid-cols-4 mt-2 md:grid-cols-2 grid-cols-1 gap-6">
           <div className="stats shadow">
             <div className="stat">
-              <div className="stat-figure  dark:text-slate-700">
+              <div className=" flex justify-between dark:text-slate-700">
+                <div className="stat-title dark:text-slate-300">Houses</div>
                 <HomeIcon className="w-8 h-8" />
               </div>
-              <div className="stat-title dark:text-slate-300">Houses</div>
+      
               <div className="stat-value dark:text-slate-300">{houses}</div>
             </div>
           </div>
 
           <div className="stats shadow">
             <div className="stat">
-              <div className="stat-figure  dark:text-slate-700">
+              <div className="flex justify-between  dark:text-slate-700">
+                <div className="stat-title dark:text-slate-300">users</div>
                 <UserGroupIcon className="w-8 h-8" />
               </div>
-              <div className="stat-title dark:text-slate-300">users</div>
               <div className="stat-value dark:text-slate-300">{users}</div>
             </div>
           </div>
 
           <div className="stats shadow">
             <div className="stat">
-              <div className="stat-figure  dark:text-slate-700">
+              <div className="flex justify-between  dark:text-slate-700">
+              <div className="stat-title dark:text-slate-300">Newsletter</div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -246,24 +248,25 @@ function Stats() {
                   />
                 </svg>
               </div>
-              <div className="stat-title dark:text-slate-300">Newsletter</div>
+             
               <div className="stat-value dark:text-slate-300">{counts}</div>
             </div>
           </div>
 
           <div className="stats shadow">
             <div className="stat">
-              <div className="stat-figure  dark:text-slate-700">
+              <div className="flex justify-between  dark:text-slate-700">
+              <div className="stat-title dark:text-slate-300">Active Users</div>
                 <UserGroupIcon className="w-8 h-8" />
               </div>
-              <div className="stat-title dark:text-slate-300">Active Users</div>
               <div className="stat-value dark:text-slate-300">{activeUser}</div>
             </div>
           </div>
 
           <div className="stats shadow">
             <div className="stat">
-              <div className="stat-figure  dark:text-slate-700">
+              <div className="flex justify-between  dark:text-slate-700">
+              <div className="stat-title dark:text-slate-300">Tenants</div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -279,14 +282,14 @@ function Stats() {
                   />
                 </svg>
               </div>
-              <div className="stat-title dark:text-slate-300">Tenants</div>
               <div className="stat-value dark:text-slate-300">{tenant}</div>
             </div>
           </div>
 
           <div className="stats shadow">
             <div className="stat">
-              <div className="stat-figure  dark:text-slate-700">
+              <div className="flex justify-between  dark:text-slate-700">
+              <div className="stat-title dark:text-slate-300">Landlords</div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -302,14 +305,19 @@ function Stats() {
                   />
                 </svg>
               </div>
-              <div className="stat-title dark:text-slate-300">Landlords</div>
               <div className="stat-value dark:text-slate-300">{landowner}</div>
             </div>
           </div>
 
           <div className="  stats shadow ">
             <div className="relative stat">
-              <div className="stat-figure  dark:text-slate-700">
+              <div className="flex justify-between  dark:text-slate-700">
+              <Link
+                to={"/admin/payment-view"}
+                className="stat-title dark:text-slate-300 hover:dark:text-slate-700"
+              >
+                Payments Requests{" "}
+              </Link>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -325,22 +333,15 @@ function Stats() {
                   />
                 </svg>
               </div>
-              <Link
-                to={"/admin/payment-view"}
-                className="stat-title dark:text-slate-300 hover:dark:text-slate-700"
-              >
-                Payments Requests{" "}
-              </Link>
-              <div className="stat-value dark:text-red-600">
-                {payments.length}
-              </div>
+              <div className="stat-value dark:text-red-600"> {payments.length}</div>
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 mt-10">
+
+        <div className="">
           {/* Graph Component */}
           <div className="col-span-2 ">
-            <div className=" rounded-lg  p-4 basis-1/4">
+            <div className=" rounded-lg  pt-20 basis-1/4">
               <h2 className="text-xl font-bold mb-4">User Statistics</h2>
               <Graph users={allUsers} />
             </div>
@@ -348,7 +349,7 @@ function Stats() {
 
           {/* PieGraph Component */}
           <div className="col-span-2">
-            <div className=" rounded-lg  p-4">
+            <div className=" rounded-lg  pt-20">
               <h2 className="text-xl font-bold mb-4">
                 Payment Request Breakdown
               </h2>
@@ -358,7 +359,7 @@ function Stats() {
 
           {/* PieGraph Component */}
           <div className="col-span-2">
-            <div className=" rounded-lg  p-4">
+            <div className=" rounded-lg  pt-20">
               <h2 className="text-xl font-bold mb-4">
                 Monthly Payments Transaction{" "}
               </h2>
