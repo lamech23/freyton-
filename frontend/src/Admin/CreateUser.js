@@ -66,9 +66,10 @@ function CreateUser(e) {
         <div className="lg:grid lg:grid-cols-1">
 
           <main className="lg:px-40  py-20">
-        <p className="text-lg font-serif text-teal-500   "> Create Account  </p>
-              <form  onSubmit={handleSubmit} className="mt-8 grid grid-cols- gap-6">
-              <div className="sm:col-span-3 space-y-2">
+        <p className="text-lg font-serif text-gray-500   text-center"> Create Account  </p>
+          <div className="border mt-5 px-10 py-10 w-full lg:w-7/12 mx-auto">
+              <form  onSubmit={handleSubmit} className="space-y-5">
+              <div className="space-y-2">
                   <label
                     for="FirstName"
                     className="block text-sm font-medium text-gray-700 "
@@ -85,7 +86,7 @@ function CreateUser(e) {
                   />
                 </div>
 
-               <div className="sm:col-span-3 space-y-2">
+               <div className="space-y-2">
                   <label
                     for="PasswordConfirmation"
                     className="block text-sm font-medium text-gray-700"
@@ -105,11 +106,12 @@ function CreateUser(e) {
                 <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
                   <button 
                   type="submit"
-                  className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500">
+                  className="inline-block shrink-0 rounded-md border border-green-400 bg-green-400 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-green-500 focus:outline-none focus:ring active:text-blue-500">
                     Create an account
                   </button>
                 </div>
               </form>
+          </div>
           </main>
         </div>
       </section>

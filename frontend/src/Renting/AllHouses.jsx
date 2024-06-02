@@ -30,23 +30,25 @@ function AllHouses() {
                 <th>Property Types</th>
                 <th>Locations</th>
                 <th>Owners</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
               {house?.map((item, index) =>
                 item?.type == "renting" ? (
                   <tr key={index} value={item}>
-                    <td>
-                      <Link
-
-                        to={`/House/${item.houseName}`}
-                      >
-                        {item.houseName}
-                      </Link>
-                    </td>
+                    <td> {item.houseName}</td>
                     <td>{item.type}</td>
                     <td>{item.location}</td>
                     <td>{item.houses.email}</td>
+                    <td>
+                      <Link
+          
+                        to={`/House/${item.houseName}`}
+                      >
+                        View
+                      </Link>
+                    </td>
                   </tr>
                 ) : null
               )}
