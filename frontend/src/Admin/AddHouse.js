@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { api } from "../utils/Api";
 
-function AddingHouse() {
+function AddHouse() {
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
@@ -748,4 +748,4 @@ function AddingHouse() {
   );
 }
 
-export default AddingHouse;
+export default AddHouse;

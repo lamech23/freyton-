@@ -23,9 +23,9 @@ function AllHouses() {
         <div className="divider mt-2"></div>
         {/* Team Member list in table format loaded constant */}
         <div className="overflow-x-auto w-full">
-          <table className="table w-full">
-            <thead>
-              <tr>
+          <table className="table w-full ">
+            <thead >
+              <tr >
                 <th>Houses</th>
                 <th>Property Types</th>
                 <th>Locations</th>

@@ -90,7 +90,7 @@ function Footer() {
 
                 <p className="text-center">
                   {" "}
-                  <i>&copy;{new Date().getFullYear()} kausi Housing Agency </i>
+                  <i>&copy;{new Date().getFullYear()} Freyton Homes </i>
                 </p>
         </div>
     </footer>

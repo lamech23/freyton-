@@ -263,17 +263,20 @@ function House() {
   //getting continous payment
 
   const handleFetchPayments = async (id) => {
-    
     try {
-      const response = await api(`/Tenant/all-cont-payments/?userId=${id}`, "GET", {}, {});
+      const response = await api(
+        `/Tenant/all-cont-payments/?userId=${id}`,
+        "GET",
+        {},
+        {}
+      );
       setContPayment(response?.payment);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const checkAmount = contPayment?.map((item)=> item.amount == ""  )
-
+  const checkAmount = contPayment?.map((item) => item.amount == "");
 
   // getting balance carried foward
 
@@ -627,287 +630,239 @@ function House() {
             ref={tableRef}
             class="font-inter w-full table-auto border-separate border-spacing-y-1 overflow-scroll text-left md:overflow-auto"
           >
-            <thead class="w-full rounded-lg bg-[#222E3A]/[6%] text-base font-semibold text-gray-800">
+            <thead class="w-full rounded-lg bg-green-400  text-base font-semibold text-gray-800">
               {" "}
               <tr>
-                <th className="whitespace-nowrap px-2.5 py-3 text-sm font-normal text-[#212B36]">
-                  Number{" "}
-                </th>
-                <th className="whitespace-nowrap px-2.5 py-3 text-sm font-normal text-[#212B36]">
+                <th className="  uppercase   whitespace-nowrap px-2.5 py-3 text-lg font-normal text-white ">
                   House Number
                 </th>
-                <th className="whitespace-nowrap px-2.5 py-3 text-sm font-normal text-[#212B36]">
+                <th className="  uppercase   whitespace-nowrap px-2.5 py-3 text-lg font-normal text-white ">
                   Tenant Name{" "}
                 </th>
-                <th className="whitespace-nowrap px-2.5 py-3 text-sm font-normal text-[#212B36]">
+                <th className="  uppercase   whitespace-nowrap px-2.5 py-3 text-lg font-normal text-white ">
                   payable Rent
                 </th>
-                <th className="whitespace-nowrap px-2.5 py-3 text-sm font-normal text-[#212B36]">
+                <th className="  uppercase   whitespace-nowrap px-2.5 py-3 text-lg font-normal text-white ">
                   {" "}
                   Paid Rent
                 </th>
-                <th className="whitespace-nowrap px-2.5 py-3 text-sm font-normal text-[#212B36] text-center">
+                <th className="  uppercase   whitespace-nowrap px-2.5 py-3 text-lg font-normal text-white  text-center">
                   Payments
                 </th>
-                <th className="whitespace-nowrap px-2.5 py-3 text-sm font-normal text-[#212B36]">
+                <th className="  uppercase   whitespace-nowrap px-2.5 py-3 text-lg font-normal text-white ">
                   Rent Deposit
                 </th>
-                <th className="whitespace-nowrap px-2.5 py-3 text-sm font-normal text-[#212B36]">
-                  prev water reading
-                </th>
-                <th className="whitespace-nowrap px-2.5 py-3 text-sm font-normal text-[#212B36]">
-                  current water reading
-                </th>
-                <th className="whitespace-nowrap px-2.5 py-3 text-sm font-normal text-[#212B36]">
-                  Water units
-                </th>
 
-                <th className="whitespace-nowrap px-2.5 py-3 text-sm font-normal text-[#212B36]">
-                  Water per unit (Ksh)
-                </th>
-                <th className="whitespace-nowrap px-2.5 py-3 text-sm font-normal text-[#212B36]">
+                <th className="  uppercase   whitespace-nowrap px-2.5 py-3 text-lg font-normal text-white ">
                   Water Bill
                 </th>
-                <th className="whitespace-nowrap px-2.5 py-3 text-sm font-normal text-[#212B36]">
-                  Previous Balance
+
+                <th className="  uppercase   whitespace-nowrap px-2.5 py-3 text-lg font-normal text-white ">
+                  Garbage 
                 </th>
-                <th className="whitespace-nowrap px-2.5 py-3 text-sm font-normal text-[#212B36]">
-                  Garbage price (Ksh)
+
+                <th className="  uppercase   whitespace-nowrap px-2.5 py-3 text-lg font-normal text-white ">
+                  balance 
                 </th>
-                <th className="whitespace-nowrap px-2.5 py-3 text-sm font-normal text-[#212B36]">
+
+                <th className="  uppercase   whitespace-nowrap px-2.5 py-3 text-lg font-normal text-white ">
                   Phone Number
                 </th>
-                <th className="whitespace-nowrap px-2.5 py-3 text-sm font-normal text-[#212B36]">
-                  Next_of_kin{" "}
-                </th>
 
-                <th className="whitespace-nowrap px-2.5 py-3 text-sm font-normal text-[#212B36]">
-                  balance C/F
-                </th>
-
-                <th className="whitespace-nowrap px-2.5 py-3 text-sm font-normal text-[#212B36]">
-                  Total
-                </th>
-                <th className=" text-center  whitespace-nowrap px-2.5 py-3 text-sm font-normal text-[#212B36]">
+                <th className=" text-center    uppercase   whitespace-nowrap px-2.5 py-3 text-lg font-normal text-white ">
                   {" "}
                   Actions
                 </th>
               </tr>
             </thead>
 
-            {filteredProducts?.map((tenants, index) => (
-                contPayment && contPayment?.find((amnt)=>
-                  amnt.userId == tenants.id
-                ) ? 
-
-              <tbody onClick={() => handleUser(tenants.id)}>
-                <tr
-                  key={index}
-                  class="cursor-pointer bg-[#f6f8fa] drop-shadow-[0_0_10px_rgba(34,46,58,0.02)] hover:shadow-2xl"
-                >
-                  <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                    {index + 1}
-                  </td>
-                  <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                    {tenants.houseNumber}
-                  </td>
-                  <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                    {tenants.tenantsName}
-                  </td>
-                  <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                    {tenants.payableRent}
-                  </td>
-                  <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                    {moment(tenants.createdAt).format("MMM") !== currentMonth
-                      ? 0
-                      : tenants.rent}
-                  </td>
-                  <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                    {payments &&
-                      Object.values(payments).map((paymentData, index) => {
-                        const matchingObjects = Object.values(
-                          paymentData
-                        ).filter((obj) => obj.userId === tenants.id);
-
-                        const paymentsForCurrentMonth = matchingObjects.filter(
-                          (payment) => {
-                            const isCurrentMonth =
-                              moment(payment.dateTime).format("MMM") ===
-                              currentMonth;
-
-                            return isCurrentMonth;
-                          }
-                        );
-
-                        if (paymentsForCurrentMonth.length > 0) {
-                          const totalAmount = paymentsForCurrentMonth.reduce(
-                            (sum, obj) => sum + Number(obj.amount),
-                            0
-                          );
-
-                          return (
-                            <React.Fragment key={index}>
-                              {paymentsForCurrentMonth.map(
-                                (matchingObject, innerIndex) => (
-                                  <tr
-                                    key={`${index}-${innerIndex}`}
-                                    className="flex flex-row justify-center items-center   "
-                                  >
-                                    <td className="flex flex-row gap-2 text-gray-600 text-sm   p-2">
-                                      <p className="whitespace-nowrap rounded-full bg-greeen-100 px-2.5 py-0.5 bg-rose-200 text-sm text-rose-700">
-                                        {" "}
-                                        {
-                                          monthsShort[
-                                            new Date(
-                                              matchingObject.createdAt
-                                            ).getMonth()
-                                          ]
-                                        }
-                                        -{innerIndex + 1}{" "}
-                                      </p>
-                                      <p className="text-green-400">
-                                        {matchingObject.amount}
-                                      </p>
-                                    </td>
-                                    <td className=" text-gray-600 text-sm  ">
-                                      {moment(matchingObject.dateTime).format(
-                                        "MMM Do YY"
-                                      )}
-                                    </td>
-                                    <td className=" text-gray-600 text-sm  ">
-                                      {matchingObject.paymentType}
-                                    </td>
-                                  </tr>
-                                )
-                              )}
-                              <tr className="flex flex-row justify-around  items-center">
-                                <td className="    text-green-600">
-                                  New Rent:{" "}
-                                  {moment(tenants.createdAt).format("MMM") ===
-                                  currentMonth
-                                    ? totalAmount + 0
-                                    : totalAmount + Number(tenants.rent)}
-                                </td>
-                              </tr>
-                            </React.Fragment>
-                          );
-                        }
-
-                        return null;
-                      })}{" "}
-                  </td>
-                  <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                    {tenants.rentDeposit}
-                  </td>
-                  <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                    {tenants.prevReadings}
-                  </td>
-                  <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                    {tenants.currentReadings <= 0 ? 0 : tenants.currentReadings}
-                  </td>
-                  <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                    {tenants.totalWaterReadings <= 0
-                      ? 0
-                      : tenants?.totalWaterReadings}
-                  </td>
-                  <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                    {getWater &&
-                      getWater?.map((house) => house.price).slice(-1)[0]}
-                  </td>
-                  <td
-                    className={`  ${
-                      moment(tenants.createdAt).format("MMM") !== currentMonth
-                        ? "text-green-600"
-                        : "text-red-600"
-                    }`}
+            {filteredProducts?.map((tenants, index) =>
+              contPayment &&
+              contPayment?.find((amnt) => amnt.userId == tenants.id) ? (
+                <tbody onClick={() => handleUser(tenants.id)}>
+                  <tr
+                    key={index}
+                    class="cursor-pointer bg-[#f6f8fa] drop-shadow-[0_0_10px_rgba(34,46,58,0.02)] hover:shadow-2xl"
                   >
-                    {moment(tenants.createdAt).format("MMM") === currentMonth
-                      ? tenants?.totalWaterReadings < 0
-                        ? 0 * Number(waterUnits)
-                        : tenants?.totalWaterReadings * Number(waterUnits)
-                      : 0}
-                  </td>
-                  <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                    {tenants.previousBalance}
-                  </td>
-                  <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                    {getGarbage &&
-                      getGarbage?.map((house) => house.price).slice(-1)[0]}
-                  </td>
-                  <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                    {tenants.phoneNumber}
-                  </td>
-                  <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                    {tenants.nextOfKingNumber}
-                  </td>
-                  <td className="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                    {(() => {
-                      const currentMonthPayments = bcf
-                        .filter((item) => item.tenatId === tenants.id)
+                    <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
+                      {tenants.houseNumber}
+                    </td>
+                    <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
+                      {tenants.tenantsName}
+                    </td>
+                    <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
+                      {tenants.payableRent}
+                    </td>
+                    <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
+                      {moment(tenants.createdAt).format("MMM") !== currentMonth
+                        ? 0
+                        : tenants.rent}
+                    </td>
+                    <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
+                      {payments &&
+                        Object.values(payments).map((paymentData, index) => {
+                          const matchingObjects = Object.values(
+                            paymentData
+                          ).filter((obj) => obj.userId === tenants.id);
 
-                        .map((item) => item.amount)
-                        .reduce((prev, next) => prev + next, 0);
+                          const paymentsForCurrentMonth =
+                            matchingObjects.filter((payment) => {
+                              const isCurrentMonth =
+                                moment(payment.dateTime).format("MMM") ===
+                                currentMonth;
 
-                      const totalWaterReadings =
-                        tenants?.totalWaterReadings * waterUnits || 0;
+                              return isCurrentMonth;
+                            });
 
-                      const latestPaymentMonth = moment(
-                        bcf
+                          if (paymentsForCurrentMonth.length > 0) {
+                            const totalAmount = paymentsForCurrentMonth.reduce(
+                              (sum, obj) => sum + Number(obj.amount),
+                              0
+                            );
+
+                            return (
+                              <React.Fragment key={index}>
+                                {paymentsForCurrentMonth.map(
+                                  (matchingObject, innerIndex) => (
+                                    <tr
+                                      key={`${index}-${innerIndex}`}
+                                      className="flex flex-row justify-center items-center   "
+                                    >
+                                      <td className="flex flex-row gap-2 text-gray-600 text-sm   p-2">
+                                        <p className="whitespace-nowrap rounded-full bg-greeen-100 px-2.5 py-0.5 bg-rose-200 text-sm text-rose-700">
+                                          {" "}
+                                          {
+                                            monthsShort[
+                                              new Date(
+                                                matchingObject.createdAt
+                                              ).getMonth()
+                                            ]
+                                          }
+                                          -{innerIndex + 1}{" "}
+                                        </p>
+                                        <p className="text-green-400">
+                                          {matchingObject.amount}
+                                        </p>
+                                      </td>
+                                      <td className=" text-gray-600 text-sm  ">
+                                        {moment(matchingObject.dateTime).format(
+                                          "MMM Do YY"
+                                        )}
+                                      </td>
+                                      <td className=" text-gray-600 text-sm  ">
+                                        {matchingObject.paymentType}
+                                      </td>
+                                    </tr>
+                                  )
+                                )}
+                                <tr className="flex flex-row justify-around  items-center">
+                                  <td className="    text-green-600">
+                                    New Rent:{" "}
+                                    {moment(tenants.createdAt).format("MMM") ===
+                                    currentMonth
+                                      ? totalAmount + 0
+                                      : totalAmount + Number(tenants.rent)}
+                                  </td>
+                                </tr>
+                              </React.Fragment>
+                            );
+                          }
+
+                          return null;
+                        })}{" "}
+                    </td>
+                    <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
+                      {tenants.rentDeposit}
+                    </td>
+
+                    <td
+                      className={`  ${
+                        moment(tenants.createdAt).format("MMM") !== currentMonth
+                          ? "text-green-600"
+                          : "text-red-600"
+                      }`}
+                    >
+                      {moment(tenants.createdAt).format("MMM") === currentMonth
+                        ? tenants?.totalWaterReadings < 0
+                          ? 0 * Number(waterUnits)
+                          : tenants?.totalWaterReadings * Number(waterUnits)
+                        : 0}
+                    </td>
+
+                    <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
+                      {getGarbage &&
+                        getGarbage?.map((house) => house.price).slice(-1)[0]}
+                    </td>
+
+                    <td className="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
+                      {(() => {
+                        const currentMonthPayments = bcf
                           .filter((item) => item.tenatId === tenants.id)
-                          .map((item) => item.createdAt)
-                          .sort((a, b) => moment(b).diff(a))[0]
-                      ).format("MMM");
 
-                      const isNewMonth = currentMonth !== latestPaymentMonth;
+                          .map((item) => item.amount)
+                          .reduce((prev, next) => prev + next, 0);
 
-                      const totalAmount =
-                        currentMonthPayments -
-                        Number(tenants.payableRent) -
-                        (totalWaterReadings <= 0 ? 0 : totalWaterReadings);
-                      console.log(totalAmount, "<- this payments ");
+                        const totalWaterReadings =
+                          tenants?.totalWaterReadings * waterUnits || 0;
 
-                      const adjustedAmount = isNewMonth
-                        ? totalAmount - Number(tenants.payableRent)
-                        : totalAmount;
+                        const latestPaymentMonth = moment(
+                          bcf
+                            .filter((item) => item.tenatId === tenants.id)
+                            .map((item) => item.createdAt)
+                            .sort((a, b) => moment(b).diff(a))[0]
+                        ).format("MMM");
 
-                      return adjustedAmount;
-                    })()}
-                  </td>
+                        const isNewMonth = currentMonth !== latestPaymentMonth;
 
-                  <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                    {tenants.totalExpenses}
-                  </td>
-                  <td>
-                    <Link
-                      to={`/RegisterTenant/?edit=${tenants.id}`}
-                      state={pagination?.currentPosts?.find(
-                        (meteData) => meteData.id === tenants.id
-                      )}
-                      class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                    >
-                      {" "}
-                      update{" "}
-                    </Link>
-                    <button
-                      onClick={() => handleDeleteTenant(tenants.id)}
-                      type="button "
-                      class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                    >
-                      Delete
-                    </button>{" "}
-                    <button
-                      onClick={handleDownload}
-                      type="button "
-                      class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                    >
-                      Excel
-                    </button>{" "}
-                  </td>
-                </tr>
-              </tbody>
+                        const totalAmount =
+                          currentMonthPayments -
+                          Number(tenants.payableRent) -
+                          Number(tenants.previousBalance) -
+                          (totalWaterReadings <= 0 ? 0 : totalWaterReadings) -
+                          Number(tenants.previousBalance);
 
-              : null 
-            ))}
+                        const adjustedAmount = isNewMonth
+                          ? totalAmount - Number(tenants.payableRent)
+                          : totalAmount;
+
+                        return adjustedAmount;
+                      })()}
+                    </td>
+
+                    <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
+                      {tenants.phoneNumber}
+                    </td>
+
+                    <td>
+                      <Link
+                        to={`/RegisterTenant/?edit=${tenants.id}`}
+                        state={pagination?.currentPosts?.find(
+                          (meteData) => meteData.id === tenants.id
+                        )}
+                        class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                      >
+                        {" "}
+                        update{" "}
+                      </Link>
+                      <button
+                        onClick={() => handleDeleteTenant(tenants.id)}
+                        type="button "
+                        class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                      >
+                        Delete
+                      </button>{" "}
+                      <button
+                        onClick={handleDownload}
+                        type="button "
+                        class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                      >
+                        Excel
+                      </button>{" "}
+                    </td>
+                  </tr>
+                </tbody>
+              ) : null
+            )}
           </table>
           <div className="flex flex-row justify-center items-center  gap-4">
             <button className="border p-2 " onClick={handleprev}>
