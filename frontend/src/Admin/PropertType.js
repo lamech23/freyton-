@@ -59,18 +59,19 @@ function PropertType() {
             <div className="divider mt-2"></div>
                 {/* Team Member list in table format loaded constant */}
             <div className="overflow-x-auto w-full">
-                <table className="table w-full">
-                    <thead>
+                <table className="w-full">
+                    <thead className="bg-green-400">
                     <tr>
-                        <th>id</th>
-                        <th>Type</th>
-                        <th>Edit</th>
+                        <th class="text-left text-sm text-white px-4 py-1">id</th>
+                        <th class="text-left text-sm text-white px-4 py-1">Type</th>
+                        <th class="text-left text-sm text-white px-4 py-1">Edit</th>
                     </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-200">
+                   
             {category &&
               category.map((type) => (
-                <tr key={type.id}>
+                <tbody className="divide-y divide-gray-200">
+                <tr className="border-b border-green-200 px-4 py-2" key={type.id}>
                   <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                     {type.id}
                   </td>
@@ -101,9 +102,10 @@ function PropertType() {
                       View
                     </button>
                   </td>
-                </tr>
-              ))}
+                  </tr>
           </tbody>
+              ))}
+
                 </table>
             </div>
        </div>

@@ -167,16 +167,17 @@ function User() {
         <div className="divider mt-2"></div>
         {/* Team Member list in table format loaded constant */}
         <div className="overflow-x-auto w-full">
-          <table className="table w-full">
-            <thead>
-              <tr>
-                <th>id</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>House Managing </th>
-                <th>Approval Status </th>
-                <th>Assign House</th>
-                <th>Actions</th>
+          <table className=" w-full">
+            <thead className="bg-green-400">
+              <tr className="">
+                <th class="text-left text-sm text-white px-4 py-1">id</th>
+                <th class="text-left text-sm text-white  px-4 py-1">Email</th>
+                <th class="text-left text-sm text-white  px-4 py-1">Role</th>
+                <th class="text-left text-sm text-white  px-4 py-1">House Managing </th>
+                <th class="text-left text-sm text-white  px-4 py-1">Approval Status </th>
+                <th class="text-left text-sm text-white  px-4 py-1">Status</th>
+                <th class="text-left text-sm text-white  px-4 py-1">Assign House</th>
+                <th class="text-left text-sm text-white  px-4 py-1">Actions</th>
               </tr>
             </thead>
             {pagination &&
@@ -184,77 +185,19 @@ function User() {
                 (allUsers) =>
                   !allUsers?.email.includes(user.email) && (
                     <tbody key={allUsers.id}>
-                      <tr>
-                        <td>{allUsers.id}</td>
+                      <tr className="border-b border-green-200 px-4 py-2">
+                        <td class=" px-4 py-2">{allUsers.id}</td>
 
-                        <td>{allUsers.email}</td>
-                        <td>{allUsers.role}</td>
-                        <td>{allUsers?.agent[0]?.house?.houseName}</td>
-                        <td
+                        <td class=" px-4 py-2">{allUsers.email}</td>
+                        <td class=" px-4 py-2">{allUsers.role}</td>
+                        <td class=" px-4 py-2">{allUsers?.agent[0]?.house?.houseName}</td>
+                        <td class=" px-4 py-2"
                           style={{ color: allUsers.verified ? "green" : "red" }}
                         >
                           {allUsers.verified ? "Verified" : "Unverified"}
                         </td>
 
-                        <td>
-                          {allUsers.role == "agent" ? (
-                            <select
-                              className="p-2 rounded-md"
-                              onChange={(e) =>
-                                handleHouseSelection(
-                                  allUsers.id,
-                                  e.target.value
-                                )
-                              }
-                            >
-                              <option value="">Select house ...</option>
-                              {house &&
-                                house
-                                  .filter((h) => h.type === "renting")
-                                  .map(
-                                    (h, index) =>
-                                      !allUsers?.agent[0]?.house?.houseName.includes(
-                                        h.houseName
-                                      ) && (
-                                        <option key={index} value={h.id}>
-                                          {h.houseName}
-                                        </option>
-                                      )
-                                  )}
-                            </select>
-                          ) : (
-                            <p>N/A</p>
-                          )}
-                        </td>
-
-                        <td className="flex flex-row justify-center items-start  gap-2">
-                          <div>
-                            {allUsers.role == "agent" ? (
-                              <button
-                                onClick={handleSave}
-                                type="submit"
-                                class="text-white bg-green-400  focus:outline-none focus:ring dark:focus:ring-green-200  font-medium rounded-lg text-sm px-2 py-1 text-center me-2 mb-2"
-                              >
-                                Assign
-                              </button>
-                            ) : null}
-                          </div>
-                          <Link
-                            to={`/UpdateUser/${allUsers.id}`}
-                            type="button"
-                            className="material-symbols-outlined text-decoration-none text-green-700"
-                          >
-                            edit
-                          </Link>
-                          <span
-                            onClick={() => handelDelete(allUsers.id)}
-                            type="button"
-                            className="material-symbols-outlined cursor-pointer"
-                            style={{ color: "red" }}
-                          >
-                            delete
-                          </span>{" "}
-                          <span>
+                        <td class=" px-4 py-2">                         <span>
                             {allUsers.Active === "active" ? (
                               <button
                                 type="button"
@@ -274,7 +217,70 @@ function User() {
                                 inActive
                               </button>
                             ) : null}
-                          </span>
+                          </span></td>
+
+                        <td class=" px-4 py-2">
+                          {allUsers.role == "agent" ? (
+                            <div className="flex">
+                            <select
+                               class="flex-shrink flex-grow flex-auto leading-normal w-4 flex-1 border border-l-0 h-7 border-grey-light rounded-lg rounded-l-none px-3 relative focus:outline-none"
+                              onChange={(e) =>
+                                handleHouseSelection(
+                                  allUsers.id,
+                                  e.target.value
+                                )
+                              }
+                            >
+                              <option value="">House</option>
+                              {house &&
+                                house
+                                  .filter((h) => h.type === "renting")
+                                  .map(
+                                    (h, index) =>
+                                      !allUsers?.agent[0]?.house?.houseName.includes(
+                                        h.houseName
+                                      ) && (
+                                        <option key={index} value={h.id}>
+                                          {h.houseName}
+                                        </option>
+                                      )
+                                  )}
+                            </select>
+                            <div>
+                            {allUsers.role == "agent" ? (
+                              <button
+                                onClick={handleSave}
+                                type="submit"
+                                class="text-white bg-green-400 mx-2 focus:outline-none focus:ring dark:focus:ring-green-200  font-medium rounded-lg text-sm px-2 py-1 text-center me-2 mb-2"
+                              >
+                                Assign
+                              </button>
+                            ) : null}
+                          </div>
+                            </div>
+                          ) : (
+                            <p className="">N/A</p>
+                          )}
+                        </td>
+                
+
+                        <td class=" px-4 py-2 flex flex-row justify-center items-start  gap-2">
+                     
+                          <Link
+                            to={`/UpdateUser/${allUsers.id}`}
+                            type="button"
+                            className="material-symbols-outlined text-decoration-none text-green-700"
+                          >
+                            edit
+                          </Link>
+                          <span
+                            onClick={() => handelDelete(allUsers.id)}
+                            type="button"
+                            className="material-symbols-outlined cursor-pointer"
+                            style={{ color: "red" }}
+                          >
+                            delete
+                          </span>{" "}
                           <button
                             type="button "
                             onClick={() => Verify(allUsers.id)}

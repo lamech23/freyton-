@@ -28,45 +28,90 @@ function FinalReport() {
   return (
     <>
       <div className="px-40 mt-20">
+
+      <table className="mb-10">
+      <thead className="bg-green-400">
+                <tr className="p-20">
+                  <th className="text-center text-white">Info</th>
+                </tr>
+            </thead>
+            <tbody className="">
+                <tr>
+                  <td className="border border-green-200 text-sm px-4 py-2">CLIENT</td>
+                  <td className="border border-green-200 text-sm pl-3 pr-20 py-2">HOUSE K-80</td>
+                </tr>
+                <tr>
+                  <td className="border border-green-200 text-sm px-4 py-2">MONTH</td>
+                  <td className="border border-green-200 text-sm pl-3 pr-20 py-2">MAY 2024</td>
+                </tr>
+                <tr>
+                  <td className="border border-green-200 text-sm px-4 py-2">AS AT </td>
+                  <td className="border border-green-200 text-sm pl-3 pr-20 py-2">29/05/2024</td>
+                </tr>
+            </tbody>
+        </table>
+
+
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg mb-20">
           <div class="px-4 py-5 flex-auto">
-            <table className=" w-full text-sm text-left rtl:text-right text-black dark:text-gray-400 ">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-100 dark:text-black">
+          <table className=" w-full">
+            <thead className="bg-green-400">
                 <tr>
-                  <th scope="col" className="px-6 py-3">
+                  <th class="text-left text-sm text-white px-4 py-1">
                     House Number
                   </th>
-                  <th scope="col" className="px-6 py-3">
+                  <th class="text-left text-sm text-white px-4 py-1">
                     Tenant Name
                   </th>
-                  <th scope="col" className="px-6 py-3">
+                  <th class="text-left text-sm text-white px-4 py-1">
                     Rent
                   </th>
-                  <th scope="col" className="px-6 py-3">
-                    Water Bill
+                  <th class="text-left text-sm text-white px-4 py-1">
+                    Rent Paid
                   </th>
-                  <th scope="col" className="px-6 py-3">
-                    Balance
+                  <th class="text-left text-sm text-white px-4 py-1">
+                    Period
+                  </th>
+                  <th class="text-left text-sm text-white px-4 py-1">
+                    Payment Date
+                  </th>
+                  <th class="text-left text-sm text-white px-4 py-1">
+                    AMount Paid
+                  </th>
+                  <th class="text-left text-sm text-white px-4 py-1">
+                   Water
+                  </th>
+                  <th class="text-left text-sm text-white px-4 py-1">
+                    Garbage
+                  </th>
+                  <th class="text-left text-sm text-white px-4 py-1">
+                    Prev Balance
+                  </th>
+                  <th class="text-left text-sm text-white px-4 py-1">
+                    Curr Balance
+                  </th>
+                  <th class="text-left text-sm text-white px-4 py-1">
+                   Comment
                   </th>
                 </tr>
               </thead>
               {reportData &&
                 reportData.map((metaDeta, index) => (
                   <tbody key={index}>
-                    <tr className=" ">
+                    <tr className="border-b border-green-200 px-4 py-2">
                       <th
                         scope="row"
-                        className="px-6 py-4 font-medium text-black whitespace-nowrap "
+                        class="text-gray-700 px-4 py-2"
                       >
                         {metaDeta.houseNumber}
                       </th>
-                      <td className="px-6 py-4 text-black">
+                      <td class="text-gray-700 px-4 py-2">
                         {metaDeta.tenantsName}
                       </td>
-                      <td className="px-6 py-4 text-black">
+                      <td class="text-gray-700 px-4 py-2">
                         ksh {metaDeta.totalAmount}
                       </td>
-                      <td className="px-6 py-4 text-black">
+                      <td class="text-gray-700 px-4 py-2">
                         Ksh {metaDeta.water_bill}
                       </td>
                       <td
@@ -85,7 +130,7 @@ function FinalReport() {
 
     
 
-        <table className=" w-full border text-sm text-left rtl:text-right mb-40 text-black dark:text-gray-400 ">
+        <table className=" w-full border border-green-200 text-sm text-left rtl:text-right  text-black dark:text-gray-400 ">
               <thead className="">
                 <tr>
                   <th scope="col" className="px-6 py-3">
@@ -102,42 +147,42 @@ function FinalReport() {
            
                   <tbody>
                     <tr className=" ">
-                    <td class="border-b-0 p-3 text-center  text-lg font-semibold pt-2">
-                       Total Rent Collected
+                    <td class="py-1 border-b  border-green-200 text-center text-lg font-semibold ">
+                       Total Rent Collected{" "}
                       </td>
 
-                      <td class="border-b-0 p-3  text-lg font-semibold pt-2">
+                      <td class="py-1 border-b border-l border-green-200 text-lg font-semibold ">
                       </td>
 
-                    <td class="border-b-0 p-3  text-green-500 text-lg font-semibold  pt-2">
+                    <td class="py-1 border-b  border-green-200 text-green-500 text-lg font-semibold  ">
                       {" "} 
-                       {finalRentSum}
+                      {finalRentSum}
                     </td>
                     </tr>
 
                     <tr className=" ">
-                    <td class="border-b-0 p-3 text-center border-t text-lg font-semibold pt-2">
+                    <td class="py-1 border-b  border-green-200 text-center text-lg font-semibold ">
                       Total Water Bill Collected{" "}
                       </td>
 
-                      <td class="border-b-0 p-3 border-t text-lg font-semibold pt-2">
+                      <td class="py-1 border-b border-l border-green-200 text-lg font-semibold ">
                       </td>
 
-                    <td class="border-b-0 p-3 border-t text-green-500 text-lg font-semibold  pt-2">
+                    <td class="py-1 border-b  border-green-200 text-green-500 text-lg font-semibold  ">
                       {" "} 
                        {finalWaterBillSum}
                     </td>
                     </tr>
 
                     <tr className=" ">
-                    <td class="border-b-0 p-3 text-center border-t text-lg font-semibold pt-2">
+                    <td class="py-1 border-b  border-green-200 text-center text-lg font-semibold ">
                        Total Balance
                       </td>
 
-                      <td class="border-b-0 p-3 border-t text-lg font-semibold pt-2">
+                      <td class="py-1 border-b border-l border-green-200 text-lg font-semibold ">
                       </td>
 
-                    <td class={`text-lg font-semibold border-b-0 p-3 border-t  ${
+                    <td class={`text-lg font-semibold py-1 border-b border-green-200  ${
                         finalBalanceSum < 0 ? "text-red-600" : "text-green-600"
                       } `}
                     >
@@ -149,14 +194,14 @@ function FinalReport() {
                
 
                     <tr className=" ">
-                     <td class="border-b-0 p-3 text-center border-t text-lg font-semibold pt-2">
+                     <td class="py-1 border-b  border-green-200 text-center text-lg font-semibold ">
                        Total Collection{" "}
                       </td>
 
-                      <td class="border-b-0 p-3 border-t text-lg font-semibold pt-2">
+                      <td class="py-1 border-b border-l border-green-200 text-lg font-semibold ">
                       </td>
 
-                    <td class="border-b-0 p-3 border-t text-green-500 text-lg font-semibold  pt-2">
+                    <td class="py-1 border-b  border-green-200 text-green-500 text-lg font-semibold  ">
                       {" "} 
                       {totalSum}
                     </td>
@@ -164,34 +209,43 @@ function FinalReport() {
 
 
                     <tr className=" ">
-                     <td class="border-b-0 p-3 text-center border-t text-lg font-semibold pt-2">
+                     <td class="py-1 border-b  border-green-200 text-center text-lg font-semibold ">
                        Commission 10%{" "}
                       </td>
 
-                      <td class="border-b-0 p-3 border-t text-lg font-semibold pt-2">
+                      <td class="py-1 border-b border-l border-green-200 text-lg font-semibold ">
                       </td>
 
-                    <td class="border-b-0 p-3 border-t text-green-500 text-lg font-semibold  pt-2">
+                    <td class="py-1 border-b  border-green-200 text-green-500 text-lg font-semibold  ">
                       {" "} 
                       {totalSumWithCommision}
                     </td>
                     </tr>
 
                     <tr className=" ">
-                    <td class="border-b-0 p-3 text-center border-t text-lg font-semibold pt-2">
+                    <td class="py-1 border-b  border-green-200 text-center text-lg font-semibold ">
                        Net Total{" "}
                       </td>
 
-                      <td class="border-b-0 p-3 border-t text-lg font-semibold pt-2">
+                      <td class="py-1 border-b border-l border-green-200 text-lg font-semibold ">
                       </td>
 
-                    <td class="border-b-0 p-3 border-t text-green-500 text-lg font-semibold  pt-2">
+                    <td class="py-1 border-b  border-green-200 text-green-500 text-lg font-semibold  ">
                       {" "} 
                       {netTotal}
                     </td>
                     </tr>
                   </tbody>
             </table>
+
+            <div>
+              <p className="text-gray-500 text-sm pt-10 text-center">NB: Above are the tenant payment details for MAY 2024.. The tenants with minor arrears willclear in due course.</p>
+          <div className="text-center">
+          <p className="text-black text-sm pt-5">1. We are still marketing to ensure full occupancy</p>
+              <p className="text-black text-sm">2. Any other clarification is much welcomed. Thanks for your continued support.</p>
+          </div>
+              <p className="text-green-500 text-sm text-center pt-5">Thank you for choosing Freytoni Property Agencies. May God bless you!</p>
+            </div>
       </div>
     </>
   );

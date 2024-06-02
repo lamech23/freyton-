@@ -23,30 +23,32 @@ function AllHouses() {
         <div className="divider mt-2"></div>
         {/* Team Member list in table format loaded constant */}
         <div className="overflow-x-auto w-full">
-          <table className="table w-full">
-            <thead>
+          <table className=" w-full">
+            <thead className="bg-green-400">
               <tr>
-                <th>Houses</th>
-                <th>Property Types</th>
-                <th>Locations</th>
-                <th>Owners</th>
-                <th>Action</th>
+                <th class="text-left text-sm text-white px-4 py-1">Houses</th>
+                <th class="text-left text-sm text-white px-4 py-1">Property Types</th>
+                <th class="text-left text-sm text-white px-4 py-1">Locations</th>
+                <th class="text-left text-sm text-white px-4 py-1">Owners</th>
+                <th class="text-left text-sm text-white px-4 py-1">Action</th>
               </tr>
             </thead>
             <tbody>
               {house?.map((item, index) =>
                 item?.type == "renting" ? (
-                  <tr key={index} value={item}>
-                    <td> {item.houseName}</td>
-                    <td>{item.type}</td>
-                    <td>{item.location}</td>
-                    <td>{item.houses.email}</td>
-                    <td>
+                  <tr className="border-b border-green-200 px-4 py-2"key={index} value={item}>
+                    <td class="text-gray-700 px-4 py-2"> {item.houseName}</td>
+                    <td class="text-gray-700 px-4 py-2">{item.type}</td>
+                    <td class="text-gray-700 px-4 py-2">{item.location}</td>
+                    <td class="text-gray-700 px-4 py-2">{item.houses.email}</td>
+                    <td class="text-gray-700 px-4 py-2">
                       <Link
-          
+                                   
                         to={`/House/${item.houseName}`}
                       >
-                        View
+                       <span  class="text-white bg-green-400 mx-2 focus:outline-none focus:ring dark:focus:ring-green-200  font-medium rounded-lg text-sm px-2 py-1 text-center me-2 mb-2">
+                       View
+                        </span> 
                       </Link>
                     </td>
                   </tr>

@@ -30,32 +30,32 @@ function ClientContactUs() {
             <div className="divider mt-2"></div>
                 {/* Team Member list in table format loaded constant */}
             <div className="overflow-x-auto w-full">
-                <table className="table w-full">
-                    <thead>
-                    <tr>
-                    <th>email</th>
-                    <th>subject</th>
-                    <th>Descripton</th>
-                    <th>Posted Date</th>
-                    <th>Delete</th>
-                    <th>mail</th>
+                <table className="w-full">
+                <thead className="bg-green-400">
+                    <tr >
+                    <th class="text-left text-sm text-white px-4 py-1">email</th>
+                    <th class="text-left text-sm text-white px-4 py-1">subject</th>
+                    <th class="text-left text-sm text-white px-4 py-1">Descripton</th>
+                    <th class="text-left text-sm text-white px-4 py-1">Posted Date</th>
+                    <th class="text-left text-sm text-white px-4 py-1">Delete</th>
+                    <th class="text-left text-sm text-white px-4 py-1">mail</th>
                     </tr>
                     </thead>
                     <tbody >
                     {contact.map((information) => (
 
-                       <tr key={information.id}>
-                        <td>{information.email}</td>
-                        <td>{information.subject}</td>
-                        <td>{information.description}</td>
-                        <td>     
+                       <tr className="border-b border-green-200 px-4 py-2" key={information.id}>
+                        <td class="text-left text-gray-500 px-4 py-2">{information.email}</td>
+                        <td class="text-left text-gray-500 px-4 py-2">{information.subject}</td>
+                        <td class="text-left text-gray-500 px-4 py-2">{information.description}</td>
+                        <td class="text-left text-gray-500 px-4 py-2">     
                            <strong>
                            {}{moment(information.createdAt).format(
                              "YYYY/MM/DD   h:mm:ss"
                            )}
                         </strong>
                       </td>
-                       <td>    
+                       <td class="text-left text-gray-500 px-4 py-2">    
                         <span
                           onClick={() => handelDelete(information.id)}
                           type="button"

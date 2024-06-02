@@ -78,18 +78,18 @@ function Category() {
         <div className="divider mt-2"></div>
         {/* Team Member list in table format loaded constant */}
         <div className="overflow-x-auto w-full">
-          <table className="table w-full">
-            <thead>
+          <table className="w-full">
+            <thead className="bg-green-400">
               <tr>
-                <th>Id</th>
-                <th>Category</th>
-                <th>Edit</th>
+                <th class="text-left text-sm text-white px-4 py-1">Id</th>
+                <th class="text-left text-sm text-white px-4 py-1">Category</th>
+                <th class="text-left text-sm text-white px-4 py-1">Edit</th>
               </tr>
             </thead>
             <tbody>
               {category &&
                 category.map((cat) => (
-                  <tr key={cat.id}>
+                  <tr className="border-b border-green-200 px-4 py-2" key={cat.id}>
                     <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                       {" "}
                       {cat.id}

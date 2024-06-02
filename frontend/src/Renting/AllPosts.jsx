@@ -32,42 +32,42 @@ function AllPosts() {
     <p>List Of Posts</p>
     <div className="divider mt-2"></div>
     <div className="overflow-x-auto w-full">
-       <table className="table w-full">
-          <thead>
+       <table className="w-full">
+       <thead className="bg-green-400">
             <tr>
-              <th><span>Image</span> </th>
-              <th>House Name</th>
-              <th> Landlord</th>
-              <th> Property Type</th>
-              <th> Units</th>
-              <th> Category</th>
-              <th>Delete</th>
+              <th class="text-left text-sm text-white px-4 py-1"><span>Image</span> </th>
+              <th class="text-left text-sm text-white px-4 py-1">House Name</th>
+              <th class="text-left text-sm text-white px-4 py-1"> Landlord</th>
+              <th class="text-left text-sm text-white px-4 py-1"> Property Type</th>
+              <th class="text-left text-sm text-white px-4 py-1"> Units</th>
+              <th class="text-left text-sm text-white px-4 py-1"> Category</th>
+              <th class="text-left text-sm text-white px-4 py-1">Delete</th>
             </tr>
           </thead>
 
           {details?.map((house, index) => (
             <tbody key={index}>
-              <tr class=" ">
+              <tr class="border-b border-green-200 px-4 py-2 ">
                 {house?.images?.map(
                   (img, imgIndex) =>
                     imgIndex === 0 && (
-                      <td class="p-4">
+                      <td  class="p-4">
                         <img
                           src={img.image}
-                          class="w-16 md:w-32 max-w-full max-h-full"
+                          class="w-16 h-16 md:w-32"
                           alt="Image"
                         />
                       </td>
                     )
                 )}
 
-                <td>  {house.houseName}</td>
-                <td>{house.houses.email}</td>
-                <td>{house.type}</td>
+                <td class="text-gray-500 px-4 py-2">  {house.houseName}</td>
+                <td class="text-gray-500 px-4 py-2">{house.houses.email}</td>
+                <td class="text-gray-500 px-4 py-2">{house.type}</td>
 
-                <td> {house.units}</td>
-                <td> {house.category}</td>
-                <td class="px-6 py-4">
+                <td class="text-gray-500 px-4 py-2"> {house.units}</td>
+                <td class="text-gray-500 px-4 py-2"> {house.category}</td>
+                <td  class="text-gray-500 px-6 py-4">
                   <button
                   onClick={()=>handleDeletePost(house.id)}
                     class="font-medium text-red-600 dark:text-red-500 hover:underline"

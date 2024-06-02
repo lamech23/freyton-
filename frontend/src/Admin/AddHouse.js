@@ -148,8 +148,8 @@ function AddingHouse() {
               }`}
             >
               <div
-                className={`w-8 h-8 mt-3 flex items-center justify-center rounded-full border-2 border-blue-500 ${
-                  completedSteps.includes(index) ? "bg-blue-500 text-white" : ""
+                className={`w-8 h-8 mt-3 flex items-center justify-center rounded-full border-2 border-green-400 ${
+                  completedSteps.includes(index) ? "bg-green-400 text-white" : ""
                 }`}
               >
                 {completedSteps.includes(index) ? "✓" : index + 1}
@@ -158,7 +158,7 @@ function AddingHouse() {
             {index < steps.length - 1 && (
               <div className="flex-grow h-2 bg-gray-200 mt-4">
                 {index < currentStep && (
-                  <div className="h-full bg-blue-500"></div>
+                  <div className="h-full bg-green-400"></div>
                 )}
               </div>
             )}
@@ -705,11 +705,16 @@ function AddingHouse() {
         <div className="flex justify-between w-full mt-4">
           <button
             type="button"
-            className="py-2 px-4 bg-blue-400 text-white rounded"
+            className="py-2 px-4 bg-green-400 text-white rounded"
             onClick={prevStep}
             disabled={currentStep === 0}
           >
-            Previous
+            <span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
+            </svg>
+
+            </span>
           </button>
           {currentStep === steps.length - 1 ? (
             <>
@@ -723,10 +728,15 @@ function AddingHouse() {
           ) : (
             <button
               type="button"
-              className="py-2 px-4 bg-green-500 text-white rounded"
+              className="py-2 px-4 bg-green-500 text-white rounded flex"
               onClick={nextStep}
             >
-              Next
+              <span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                </svg>
+
+              </span>
             </button>
           )}
         </div>
