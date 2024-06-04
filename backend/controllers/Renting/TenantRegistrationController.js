@@ -146,26 +146,9 @@ const paymentsCreations = async (req, res) => {
         dateTime: dateTime,
         userId: id,
       });
-      // const tenantsId = tenant.map((data) => data.id);
 
-      const tenantInfo = await tenantRegistration.findOne({
-        where: {
-          id: id,
-        },
-      });
 
-      // const totalWaterReadings =
-      //   tenantInfo.currentReadings - tenantInfo.prevReadings;
-
-      // const getWater = await water.findAll({
-      //   where: {
-      //     house_id: tenantInfo.houseId,
-      //   },
-      // });
-
-      // const waterRate = getWater?.map((data) => data.price).slice(-1)[0];
-
-      const balances = balanceCf.create({
+      await balanceCf.create({
         where: {
           tenatId: id,
         },
@@ -191,9 +174,11 @@ const ContinousPaymentsCreations = async (req, res) => {
 
   try {
     const updatedPaymentArray = Object.values(updatedPayment);
+
+    console.log(updatedPaymentArray);
     const tenant = await tenantRegistration.findAll({
       where: {
-        houseId: 2,
+        houseId: id,
       },
     });
 
@@ -202,37 +187,11 @@ const ContinousPaymentsCreations = async (req, res) => {
       const { id, amount, paymentType, dateTime } = tenantUpdate;
 
       // Create a payment for the current user
-      const paymentData = await continousPayments.create({
+      await continousPayments.create({
+        tenantId: id,
         amount: amount,
         paymentType: paymentType,
         dateTime: dateTime,
-        userId: id,
-      });
-      // const tenantsId = tenant.map((data) => data.id);
-
-      const tenantInfo = await tenantRegistration.findOne({
-        where: {
-          id: id,
-        },
-      });
-
-      // const totalWaterReadings =
-      //   tenantInfo.currentReadings - tenantInfo.prevReadings;
-
-      // const getWater = await water.findAll({
-      //   where: {
-      //     house_id: tenantInfo.houseId,
-      //   },
-      // });
-
-      // const waterRate = getWater?.map((data) => data.price).slice(-1)[0];
-
-      const balances = balanceCf.create({
-        where: {
-          tenatId: id,
-        },
-        amount: amount,
-        tenatId: id,
       });
     }
 
@@ -362,8 +321,6 @@ const updateWaterBill = async (req, res) => {
           { currentReadings },
           { where: { tenant_id: id } }
         );
-
-     
       }
 
       // Update the fields in the tenantRegistration table
@@ -401,28 +358,37 @@ const getallTeants = async (req, res) => {
   }
 };
 
-const getContinousPayment = async(req, res) =>{
-const tenant = await tenantRegistration.findAll({});
-const tenantsId = tenant.map((data) => data.id);
+const getContinousPayment = async (req, res) => {
+  const tenant = await tenantRegistration.findAll({});
+  const tenantsId = tenant.map((data) => data.id);
 
-const payment = await continousPayments.findAll({
-  where: {
-    userId: tenantsId 
+  const payment = await continousPayments.findAll({
+    where: {
+      tenantId: tenantsId,
+    },
+  });
+
+  const contPayment = payment
+    .map((item) => Number(item.amount))
+    .reduce((prev, next) => prev + next, 0);
+
+  if (payment && contPayment) {
+    const mergedPayment = {
+      payment,
+      contPayment,
+    };
+
+    res.status(200).json({
+      success: true,
+      payment,
+    });
+  } else {
+    res.status(404).json({
+      success: false,
+      error: error.message,
+    });
   }
-})
-
-if(payment){
-  res.status(200).json({
-    success:true,
-    payment
-  })
-}else{
-  res.status(404).json({
-    success:false,
-    error: error.message
-  })
-}
-}
+};
 
 const deleteTenant = async (req, res) => {
   try {
@@ -454,5 +420,5 @@ module.exports = {
   fetchAllAdditinalPaymentsForDashboard,
   getallTeants,
   ContinousPaymentsCreations,
-  getContinousPayment
+  getContinousPayment,
 };

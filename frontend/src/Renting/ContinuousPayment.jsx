@@ -8,10 +8,13 @@ import { Calendar } from "primereact/calendar";
 
 import { api } from "../utils/Api";
 import { ToastContainer, toast } from "react-toastify";
+import moment from "moment";
 
 function ContinuousPayment() {
   let houseId = useLocation().pathname.split("/")[2];
-  let userId = useLocation().state
+  let continuousPayment = useLocation().state
+  const [currnetMonth, setCurrentMonth]=useState(moment().format("MMM"))
+
   const [dateTime, setDateTime] = useState({});
   const [amount, setAmount] = useState(null);
   const [paymentType, setPaymentType] = useState("");
@@ -50,9 +53,11 @@ function ContinuousPayment() {
     );
 
     if (response) {
-      toast.success("payment created  ");
+      toast.success("payment created");
     }
   };
+
+
   return (
     <>
       <div className=" px-20 py-20  w-full p-6 bg-base-100 shadow-xl">
@@ -93,9 +98,12 @@ function ContinuousPayment() {
               </tr>
             </thead>
               {tenant?.map((tenants, index ) => (
-            <tbody key={index} class={` ${
-              tenants.id == (userId) ?  ' bg-gradient-to-r from-green-400  via-green-500 to-green-700 ': 'bg-white'
-            }` }>
+
+              continuousPayment?.some((payment)=> moment(payment.createdAt).format("MMM") === moment(tenants.createdAt).format("MMM") ) == true  ?(
+
+                
+
+            <tbody key={index} >
               {" "}
                 <tr>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black">
@@ -174,6 +182,7 @@ function ContinuousPayment() {
                  
                 </tr>
             </tbody>
+            ) : null 
               ))}
           </table>
 

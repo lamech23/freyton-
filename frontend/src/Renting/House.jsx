@@ -278,6 +278,7 @@ function House() {
 
   const checkAmount = contPayment?.map((item) => item.amount == "");
 
+
   // getting balance carried foward
 
   useEffect(() => {
@@ -539,7 +540,7 @@ function House() {
 
             <Link
               to={`/continuous-payment/${visitedHouseId}`}
-              state={getWater}
+              state={contPayment}
               className="block no-underline rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700 capitalize"
             >
               Continous Payment
@@ -678,7 +679,7 @@ function House() {
 
             {filteredProducts?.map((tenants, index) =>
               contPayment &&
-              contPayment?.find((amnt) => amnt.userId == tenants.id) ? (
+              contPayment?.find((amnt) => amnt.tenantId === tenants.id) ? (
                 <tbody onClick={() => handleUser(tenants.id)}>
                   <tr
                     key={index}
@@ -798,9 +799,18 @@ function House() {
                       {(() => {
                         const currentMonthPayments = bcf
                           .filter((item) => item.tenatId === tenants.id)
-
                           .map((item) => item.amount)
                           .reduce((prev, next) => prev + next, 0);
+
+                          const payments  = contPayment
+                          .filter((item) => item.tenantId === tenants.id)
+                          .map((item) => Number(item.amount))
+                          .slice(-1)[0]
+
+                         
+
+                          // .reduce((prev, next) => prev + next, 0);
+                      
 
                         const totalWaterReadings =
                           tenants?.totalWaterReadings * waterUnits || 0;
@@ -812,14 +822,16 @@ function House() {
                             .sort((a, b) => moment(b).diff(a))[0]
                         ).format("MMM");
 
-                        const isNewMonth = currentMonth !== latestPaymentMonth;
+                        const tenantCreation  = moment(tenants.createdAt).format("MMM") === currentMonth
 
+
+                        const isNewMonth = currentMonth !== latestPaymentMonth;
+                      
                         const totalAmount =
-                          currentMonthPayments -
+                         (   (tenantCreation ? payments : currentMonthPayments) -
                           Number(tenants.payableRent) -
                           Number(tenants.previousBalance) -
-                          (totalWaterReadings <= 0 ? 0 : totalWaterReadings) -
-                          Number(tenants.previousBalance);
+                          (totalWaterReadings <= 0 ? 0 : totalWaterReadings) )
 
                         const adjustedAmount = isNewMonth
                           ? totalAmount - Number(tenants.payableRent)

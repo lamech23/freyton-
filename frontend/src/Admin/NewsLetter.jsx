@@ -28,20 +28,20 @@ function NewsLetter() {
             <div className="divider mt-2"></div>
                 {/* Team Member list in table format loaded constant */}
             <div className="overflow-x-auto w-full">
-                <table className="table w-full">
-                    <thead>
+                <table className="w-full">
+                <thead className="bg-green-400">
                     <tr>
-                    <th>Email</th>
-                    <th>Date</th>
-                    <th>Delete</th>
+                    <th class="text-left text-sm text-white px-4 py-1">Email</th>
+                    <th class="text-left text-sm text-white px-4 py-1">Date</th>
+                    <th class="text-left text-sm text-white px-4 py-1">Delete</th>
                     </tr>
                     </thead>
                     <tbody >
                     {NewsLetter.map((news) => (
-                       <tr key={news.id}>
-                        <td>{news.email}</td>
-                       <td>  {moment(news.createdAt).format("YYYY/MM/DD   h:mm:ss")}</td>
-                        <td>  
+                       <tr className="border-b border-green-200 px-4 py-2" key={news.id}>
+                        <td class="text-left text-gray-500 px-4 py-2">{news.email}</td>
+                       <td class="text-left text-gray-500 px-4 py-2">  {moment(news.createdAt).format("YYYY/MM/DD   h:mm:ss")}</td>
+                        <td class="text-left text-gray-500 px-4 py-2">  
                         <span
                           onClick={() => handelDelete(news.id)}
                           type="button"
