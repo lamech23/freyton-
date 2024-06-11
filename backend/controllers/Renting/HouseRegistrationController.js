@@ -30,9 +30,9 @@ const getAllHouses = async (req, res) => {
 
   const tenantsId = tenant.map((data) => data.id);
 
-  const paymentData = await payments.findAll({
-    where: { userId: tenantsId },
-  });
+  // const paymentData = await payments.findAll({
+  //   where: { tenantId: tenantsId },
+  // });
 
   try {
     const detailsWithTotal = details?.rows?.map((detail) => {
@@ -56,6 +56,7 @@ const getAllHouses = async (req, res) => {
         balance,
       };
     });
+
 
     const totalPages = Math.ceil(detailsWithTotal.length / page_size);
 

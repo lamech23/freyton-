@@ -15,7 +15,7 @@ const id = user?.id;
 // Define routes based on user status
 let routes = [
   {
-    path: "/account/",
+    path: "/account/user-stats",
     icon: <ChartBarIcon className={iconClasses}/>, 
     name: "Analytics",
   },

@@ -64,7 +64,7 @@ function Login() {
           navigate("/landowner/analytics");
           toast.success(`Welcom back`);
         } else if (userRoles.includes("tenant")) {
-          navigate("/account/");
+          navigate("/account/user-stats");
           toast.success(`Welcom back`);
         } else {
           navigate("/");

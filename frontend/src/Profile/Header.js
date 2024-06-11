@@ -29,9 +29,8 @@ function Header() {
 
   const fetchImage = async () => {
     try {
-      const response = api("/Acc/user-image", "GET", {}, {});
-      
-      if (response.ok) {
+      const response = await api("/Acc/user-image", "GET", {}, {});
+      if (response) {
         setPhoto(response?.account);
       } else {
         setPhoto(
@@ -45,9 +44,8 @@ function Header() {
 
   useEffect(() => {
     fetchImage();
-  }, [photo]);
+  }, []);
 
-  console.log(photo);
   return (
     // navbar fixed  flex-none justify-between bg-base-300  z-10 shadow-md
 
@@ -68,7 +66,7 @@ function Header() {
           <div className="dropdown dropdown-end ml-4">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                  <img src={photo} alt="profile" />
+                <img src={photo?.image}  alt="profile" />
               </div>
             </label>
             <ul

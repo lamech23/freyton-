@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
 const db = require("../../config/Database");
 const users = require("../UserModels");
+const tenantRegistration = require("./RegisterTenantModel");
 
 const payments = db.define(
   "payments",
@@ -15,7 +16,7 @@ const payments = db.define(
       type: DataTypes.STRING,
     },
 
-    userId: {
+    tenantId: {
       type: DataTypes.INTEGER,
     },
   },
@@ -24,8 +25,8 @@ const payments = db.define(
     timestamps: true,
   }
 );
-payments.belongsTo(users, {
-  foreignKey: "userId",
+payments.belongsTo(tenantRegistration, {
+  foreignKey: "tenantId",
   as: "payments",
 });
 

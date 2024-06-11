@@ -26,6 +26,9 @@ const tenantRegistration = db.define(
     waterReading: {
       type: DataTypes.STRING,
     },
+    waterDeposite: {
+      type: DataTypes.STRING,
+    },
    
 
     userName: {

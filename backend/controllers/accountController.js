@@ -47,12 +47,9 @@ const fetchAccount = async (req, res) => {
     const token = req.user;
     const userid = token.userId.id;
 
-    const account = await userAccount.findOne({
-      where: {
-        userId: userid,
-      },
-    });
+    const account = await userAccount.findByPk(userid);
 
+    // console.log(account);
     if (account) {
       return res.status(200).json({
         success: true,

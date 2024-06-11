@@ -1,7 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import { api } from "../utils/Api";
 import { ToastContainer, toast } from "react-toastify";
+
 
 function MoreAboutUser() {
   const [image, setImage] = useState("");
@@ -15,18 +16,32 @@ function MoreAboutUser() {
 
   const [isCameraOn, setIsCameraOn] = useState(false);
 
-  const startCamera = () => {
-    setIsCameraOn(true);
-    console.log(Webcam);
-  };
-
   const webcamRef = useRef(null);
+  const videoRef = useRef(null);
   const [imageSrc, setImageSrc] = useState(null);
 
-  const captureImage = () => {
+  const startCamera = () => {
+    navigator.mediaDevices.getDisplayMedia({
+      video:true
+
+    })
+    .then((stream)=>{
+      let video = webcamRef.current
+      video.srcObject = stream
+      video.play()
+    })
+    .catch((error)=> 
+      console.log(error)
+    )
+
+    setIsCameraOn(true);
+  };
+webcamRef
+
+ const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImageSrc(imageSrc);
-  };
+  }, [webcamRef])
 
   //creating an account
 
@@ -69,6 +84,8 @@ function MoreAboutUser() {
   return (
     <>
       <section className="bg-gray-100">
+
+        
         <div>
           {!isCameraOn && <button onClick={startCamera}>Start Camera</button>}
           {isCameraOn && (
@@ -80,11 +97,12 @@ function MoreAboutUser() {
                 width={640}
                 height={480}
               />
-              <button onClick={captureImage}>Capture</button>
+              <button onClick={capture}>Capture</button>
               {imageSrc && <img src={imageSrc} alt="Captured" />}
             </div>
           )}
         </div>
+        
         <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
             <div className="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">

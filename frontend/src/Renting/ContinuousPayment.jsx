@@ -1,6 +1,3 @@
-
-
-
 import axios from "axios";
 import React, { useEffect, useId, useState } from "react";
 import { Link, Navigate, useLocation } from "react-router-dom";
@@ -12,8 +9,8 @@ import moment from "moment";
 
 function ContinuousPayment() {
   let houseId = useLocation().pathname.split("/")[2];
-  let continuousPayment = useLocation().state
-  const [currnetMonth, setCurrentMonth]=useState(moment().format("MMM"))
+  let continuousPayment = useLocation().state;
+  const [currnetMonth, setCurrentMonth] = useState(moment().format("MMM"));
 
   const [dateTime, setDateTime] = useState({});
   const [amount, setAmount] = useState(null);
@@ -22,6 +19,14 @@ function ContinuousPayment() {
   const [updatedUsers, setUpdatedUsers] = useState({});
 
   const [tenant, setTenant] = useState([]);
+
+  const findPayment = tenant?.map((user) => {
+    const payment = continuousPayment?.find((payment) => {
+      return payment.tenantId === user.id;
+    });
+
+    return payment;
+  });
 
 
   useEffect(() => {
@@ -34,7 +39,7 @@ function ContinuousPayment() {
       }
     };
     getTenantinfo();
-  }, []);
+  }, [continuousPayment]);
 
   const creatingPayment = async (e) => {
     e.preventDefault();
@@ -57,11 +62,10 @@ function ContinuousPayment() {
     }
   };
 
-
   return (
     <>
       <div className=" px-20 py-20  w-full p-6 bg-base-100 shadow-xl">
-        <p className="text-lg font-serif text-green-500">Continous  Payment</p>
+        <p className="text-lg font-serif text-green-500">Continous Payment</p>
         <div className="divider mt-2"></div>
         {/* Team Member list in table format loaded constant */}
         <div className="overflow-x-auto w-full">
@@ -79,13 +83,13 @@ function ContinuousPayment() {
                 </th>
 
                 <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-black">
-                  Rent {" "}
+                  Rent{" "}
                 </th>
                 <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-black">
-                  previous balance 
+                  previous balance
                 </th>
                 <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-black">
-                  amount 
+                  amount
                 </th>
 
                 <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-black">
@@ -94,96 +98,93 @@ function ContinuousPayment() {
                 <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-black">
                   PaymentType
                 </th>
-
               </tr>
             </thead>
-              {tenant?.map((tenants, index ) => (
+            {tenant?.map((tenants, index) =>
+              continuousPayment?.map(
+                (user) =>
+                    moment(user.createdAt).format("MM") !== moment().format("MM")
+              ) ? null :  (
+                <tbody key={index}>
+                  {" "}
+                  <tr>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black">
+                      {tenants.id}
+                    </td>
 
-              continuousPayment?.some((payment)=> moment(payment.createdAt).format("MMM") === moment(tenants.createdAt).format("MMM") ) == true  ?(
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black">
+                      {tenants.houseNumber}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black">
+                      {tenants.tenantsName}
+                    </td>
 
-                
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black">
+                      {tenants.payableRent}
+                    </td>
 
-            <tbody key={index} >
-              {" "}
-                <tr>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black">
-                    {tenants.id}
-                  </td>
-
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black">
-                    {tenants.houseNumber}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black">
-                    {tenants.tenantsName}
-                  </td>
-
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black">
-                    {tenants.payableRent}
-                  </td>
-
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black">
-                    {tenants.previousBalance}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black">
-                    <input
-                      type="text"
-                      className=" border border-gray-400 w-full p-4 rounded-lg "
-                      value={amount}
-                      onChange={(e) =>
-                        setUpdatedUsers({
-                          ...updatedUsers,
-                          [tenants.id]: {
-                            ...updatedUsers[tenants.id],
-                            amount: e.target.value, 
-                          },
-                        })
-                      }
-                    />
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black">
-                    <input
-                      type="date"
-                      className=" border border-gray-400 w-full p-4 rounded-lg "
-                      value={dateTime}
-                      onChange={(e) =>
-                        setUpdatedUsers({
-                          ...updatedUsers,
-                          [tenants.id]: {
-                            ...updatedUsers[tenants.id],
-                            dateTime: e.target.value,
-                          },
-                        })
-                      }
-                    />
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black">
-                    <select
-                      id="paymenyType"
-                      class="
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black">
+                      {tenants.previousBalance}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black">
+                      <input
+                        type="text"
+                        className=" border border-gray-400 w-full p-4 rounded-lg "
+                        value={amount}
+                        onChange={(e) =>
+                          setUpdatedUsers({
+                            ...updatedUsers,
+                            [tenants.id]: {
+                              ...updatedUsers[tenants.id],
+                              amount: e.target.value,
+                            },
+                          })
+                        }
+                      />
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black">
+                      <input
+                        type="date"
+                        className=" border border-gray-400 w-full p-4 rounded-lg "
+                        value={dateTime}
+                        onChange={(e) =>
+                          setUpdatedUsers({
+                            ...updatedUsers,
+                            [tenants.id]: {
+                              ...updatedUsers[tenants.id],
+                              dateTime: e.target.value,
+                            },
+                          })
+                        }
+                      />
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black">
+                      <select
+                        id="paymenyType"
+                        class="
                         p-6 rounded-lg 
                         "
-                      value={paymentType}
-                      onChange={(e) =>
-                        setUpdatedUsers({
-                          ...updatedUsers,
-                          [tenants.id]: {
-                            ...updatedUsers[tenants.id],
-                            paymentType: e.target.value,
-                          },
-                        })
-                      }
-                    >
-                      <option selected>select payment type</option>
-                      <option value="mpesa">Mpesa</option>
-                      <option value="bank">Bank </option>
-                      <option value="cash">Cash</option>
-                    </select>
-                  </td>
-                 
-                </tr>
-            </tbody>
-            ) : null 
-              ))}
+                        value={paymentType}
+                        onChange={(e) =>
+                          setUpdatedUsers({
+                            ...updatedUsers,
+                            [tenants.id]: {
+                              ...updatedUsers[tenants.id],
+                              paymentType: e.target.value,
+                            },
+                          })
+                        }
+                      >
+                        <option selected>select payment type</option>
+                        <option value="mpesa">Mpesa</option>
+                        <option value="bank">Bank </option>
+                        <option value="cash">Cash</option>
+                      </select>
+                    </td>
+                  </tr>
+                </tbody>
+              )
+            )}
           </table>
 
           <form onSubmit={creatingPayment}>
@@ -196,18 +197,18 @@ function ContinuousPayment() {
             </button>
           </form>
         </div>
-      <ToastContainer
-        position="top-left"
-        autoClose={3000}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
+        <ToastContainer
+          position="top-left"
+          autoClose={3000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
       </div>
     </>
   );

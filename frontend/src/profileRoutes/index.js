@@ -11,6 +11,7 @@ const Post = lazy(() => import('../user/AddingHouse'))
 const Houses = lazy(() => import('../user/UserHouse'))
 const AboutUser = lazy(() => import('../user/MoreAboutUser'))
 const paymentRequest = lazy(() => import('../Renting/PaymentRequest'))
+const UserAnalytics = lazy(() => import('../user/UserAnalytics'))
 
 
 
@@ -28,6 +29,10 @@ const routes = [
   {
     path: '/appointment/:id',
     component: Appointment,
+  },
+  {
+    path: '/user-stats',
+    component: UserAnalytics,
   },
 
   {

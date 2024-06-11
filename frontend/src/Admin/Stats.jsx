@@ -338,10 +338,10 @@ function Stats() {
           </div>
         </div>
 
-        <div className="">
+        <div className="lg:flex lg:flex-row md:flex-wrap gap-20 justify-around ">
           {/* Graph Component */}
           <div className="col-span-2 ">
-            <div className=" rounded-lg  pt-20 basis-1/4">
+            <div className=" rounded-lg  pt-20 ">
               <h2 className="text-xl font-bold mb-4">User Statistics</h2>
               <Graph users={allUsers} />
             </div>

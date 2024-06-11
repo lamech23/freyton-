@@ -278,18 +278,18 @@ function House() {
 
   const checkAmount = contPayment?.map((item) => item.amount == "");
 
-
   // getting balance carried foward
 
   useEffect(() => {
-    const getBcf = async (id) => {
+    const getBcf = async () => {
       try {
         const res = await api(`/balance-cf/bcf/`, "GET", {}, {});
-        setBcf(res?.allAmount);
+        setBcf(res?.totalAmount);
       } catch (error) {
         console.log(error);
       }
     };
+    console.log(bcf);
 
     getBcf();
     handleFetchPayments();
@@ -504,12 +504,12 @@ function House() {
       </article>
 
       <header className=" mt-10 mb-20">
-        <div className="px-10 flex  gap-4 flex-1 items-center justify-start md:justify-between">
-          <div className="sm:flex sm:gap-4 space-y-5 lg:space-y-0">
+        <div className="px-10 flex justify-center  gap-4  items-center justify- md:justify-between">
+          <div className="sm:flex  sm:gap-4 space-y-5 lg:space-y-0">
             <button
               type="button"
               onClick={openModal}
-              className="block no-underline rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700 capitalize"
+              className=" w-full    text-center   no-underline rounded-md bg-gradient-to-r from-green-400 via-green-500 to-green-600  text-lg font-serif  font-bold text-white transition hover:bg-teal-700 capitalize"
             >
               Add Tenant
             </button>
@@ -517,14 +517,14 @@ function House() {
             <button
               type="button"
               onClick={openModalRate}
-              className="block no-underline rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700 capitalize"
+              className="block w-full text-center   no-underline bg-gradient-to-r from-green-400 via-green-500 to-green-600  rounded-md bg-teal-600 px-5 py-2.5 text-lg  font-bold font-serif  text-white transition hover:bg-teal-700 capitalize"
             >
               Add Water Rate
             </button>
             <button
               type="button"
               onClick={openGarbage}
-              className="block no-underline rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700 capitalize"
+              className="block w-full text-center   no-underline bg-gradient-to-r from-green-400 via-green-500 to-green-600  rounded-md bg-teal-600 px-5 py-2.5 text-lg  font-bold font-serif  text-white transition hover:bg-teal-700 capitalize"
             >
               Garbage
             </button>
@@ -532,7 +532,7 @@ function House() {
             <Link
               to={`/payments/${visitedHouseId}`}
               state={getWater}
-              className="block no-underline rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700 capitalize"
+              className="block w-full text-center   no-underline bg-gradient-to-r from-green-400 via-green-500 to-green-600  rounded-md bg-teal-600 px-5 py-2.5 text-lg  font-bold font-serif  text-white transition hover:bg-teal-700 capitalize"
               href="/"
             >
               bill water
@@ -541,21 +541,21 @@ function House() {
             <Link
               to={`/continuous-payment/${visitedHouseId}`}
               state={contPayment}
-              className="block no-underline rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700 capitalize"
+              className="block w-full text-center   no-underline bg-gradient-to-r from-green-400 via-green-500 to-green-600  rounded-md bg-teal-600 px-5 py-2.5 text-lg  font-bold font-serif  text-white transition hover:bg-teal-700 capitalize"
             >
               Continous Payment
             </Link>
 
             <Link
               to={`/addtionalPayments/${visitedHouseId}`}
-              className="block no-underline rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700 capitalize"
+              className="block w-full text-center   no-underline bg-gradient-to-r from-green-400 via-green-500 to-green-600  rounded-md bg-teal-600 px-5 py-2.5 text-lg  font-bold font-serif  text-white transition hover:bg-teal-700 capitalize"
               href="/"
             >
               additinal payments
             </Link>
             <Link
               to={`/final-report`}
-              className="block no-underline rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700 capitalize"
+              className="block w-full text-center   no-underline bg-gradient-to-r from-green-400 via-green-500 to-green-600  rounded-md bg-teal-600 px-5 py-2.5 text-lg  font-bold font-serif  text-white transition hover:bg-teal-700 capitalize"
               state={finalReport}
             >
               Generate House Report
@@ -563,7 +563,7 @@ function House() {
 
             <Link
               to={`/addtionalPayments/${houseId}`}
-              className="block no-underline rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700 capitalize"
+              className="block w-full text-center   no-underline bg-gradient-to-r from-green-400 via-green-500 to-green-600  rounded-md bg-teal-600 px-5 py-2.5 text-lg  font-bold font-serif  text-white transition hover:bg-teal-700 capitalize"
               href="/"
             >
               Water Report
@@ -571,27 +571,29 @@ function House() {
 
             <button
               onClick={() => toPDF()}
-              className="block no-underline rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700 capitalize"
+              className="block w-full text-center   no-underline bg-gradient-to-r from-green-400 via-green-500 to-green-600  rounded-md bg-teal-600 px-5 py-2.5 text-lg  font-bold font-serif  text-white transition hover:bg-teal-700 capitalize"
             >
               Download
             </button>
             <Link
               to="/report"
               state={houseName}
-              className="block no-underline rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700 capitalize"
+              className="block w-full text-center   no-underline bg-gradient-to-r from-green-400 via-green-500 to-green-600  rounded-md bg-teal-600 px-5 py-2.5 text-lg  font-bold font-serif  text-white transition hover:bg-teal-700 capitalize"
             >
               report
             </Link>
 
-            <DownloadTableExcel
-              filename="users table"
-              sheet="users"
-              currentTableRef={tableRef.current}
-            >
-              <button className="block no-underline rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700 capitalize">
-                Export excel{" "}
-              </button>
-            </DownloadTableExcel>
+            <div>
+              <DownloadTableExcel
+                filename="users table"
+                sheet="users"
+                currentTableRef={tableRef.current}
+              >
+                <button className="block w-full text-center   no-underline bg-gradient-to-r from-green-400 via-green-500 to-green-600  rounded-md bg-teal-600 px-5 py-2.5 text-lg  font-bold font-serif  text-white transition hover:bg-teal-700 capitalize">
+                  Export excel{" "}
+                </button>
+              </DownloadTableExcel>
+            </div>
           </div>
         </div>
       </header>
@@ -610,13 +612,13 @@ function House() {
 
             <button
               onClick={() => startNewMonth("previous")}
-              class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+              class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-bold rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
             >
               Previous Month
             </button>
             <button
               onClick={() => startNewMonth("next")}
-              class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+              class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-bold rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
             >
               Start Month
             </button>
@@ -659,11 +661,11 @@ function House() {
                 </th>
 
                 <th className="  uppercase   whitespace-nowrap px-2.5 py-3 text-lg font-normal text-white ">
-                  Garbage 
+                  Garbage
                 </th>
 
                 <th className="  uppercase   whitespace-nowrap px-2.5 py-3 text-lg font-normal text-white ">
-                  balance 
+                  balance
                 </th>
 
                 <th className="  uppercase   whitespace-nowrap px-2.5 py-3 text-lg font-normal text-white ">
@@ -679,7 +681,7 @@ function House() {
 
             {filteredProducts?.map((tenants, index) =>
               contPayment &&
-              contPayment?.find((amnt) => amnt.tenantId === tenants.id) ? (
+              // contPayment?.find((amnt) => amnt.tenantId === tenants.id) ? (
                 <tbody onClick={() => handleUser(tenants.id)}>
                   <tr
                     key={index}
@@ -704,7 +706,7 @@ function House() {
                         Object.values(payments).map((paymentData, index) => {
                           const matchingObjects = Object.values(
                             paymentData
-                          ).filter((obj) => obj.userId === tenants.id);
+                          ).filter((obj) => obj.tenantId === tenants.id);
 
                           const paymentsForCurrentMonth =
                             matchingObjects.filter((payment) => {
@@ -762,7 +764,7 @@ function House() {
                                     {moment(tenants.createdAt).format("MMM") ===
                                     currentMonth
                                       ? totalAmount + 0
-                                      : totalAmount + Number(tenants.rent)}
+                                      : totalAmount + Number(tenants.payableRent)}
                                   </td>
                                 </tr>
                               </React.Fragment>
@@ -798,46 +800,30 @@ function House() {
                     <td className="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
                       {(() => {
                         const currentMonthPayments = bcf
-                          .filter((item) => item.tenatId === tenants.id)
-                          .map((item) => item.amount)
-                          .reduce((prev, next) => prev + next, 0);
-
-                          const payments  = contPayment
                           .filter((item) => item.tenantId === tenants.id)
-                          .map((item) => Number(item.amount))
-                          .slice(-1)[0]
+                          .map((item) => item.amount);
 
-                         
+                        // const latestPaymentMonth = moment(
+                        //   bcf
+                        //     .filter((item) => item.tenatId === tenants.id)
+                        //     .map((item) => item.createdAt)
+                        //     .sort((a, b) => moment(b).diff(a))[0]
+                        // ).format("MMM");
 
-                          // .reduce((prev, next) => prev + next, 0);
-                      
+                        // const tenantCreation =
+                        //   moment(tenants.createdAt).format("MMM") ===
+                        //   currentMonth;
+                        // const isNewMonth = currentMonth !== latestPaymentMonth;
 
-                        const totalWaterReadings =
-                          tenants?.totalWaterReadings * waterUnits || 0;
+                        // const totalAmount = currentMonthPayments;
 
-                        const latestPaymentMonth = moment(
-                          bcf
-                            .filter((item) => item.tenatId === tenants.id)
-                            .map((item) => item.createdAt)
-                            .sort((a, b) => moment(b).diff(a))[0]
-                        ).format("MMM");
+                       
 
-                        const tenantCreation  = moment(tenants.createdAt).format("MMM") === currentMonth
+                        // const adjustedAmount = isNewMonth
+                        //   ? totalAmount - Number(tenants.payableRent)
+                        //   : totalAmount;
 
-
-                        const isNewMonth = currentMonth !== latestPaymentMonth;
-                      
-                        const totalAmount =
-                         (   (tenantCreation ? payments : currentMonthPayments) -
-                          Number(tenants.payableRent) -
-                          Number(tenants.previousBalance) -
-                          (totalWaterReadings <= 0 ? 0 : totalWaterReadings) )
-
-                        const adjustedAmount = isNewMonth
-                          ? totalAmount - Number(tenants.payableRent)
-                          : totalAmount;
-
-                        return adjustedAmount;
+                        return currentMonthPayments;
                       })()}
                     </td>
 
@@ -873,7 +859,7 @@ function House() {
                     </td>
                   </tr>
                 </tbody>
-              ) : null
+              // ) : null
             )}
           </table>
           <div className="flex flex-row justify-center items-center  gap-4">

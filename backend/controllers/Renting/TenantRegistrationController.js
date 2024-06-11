@@ -17,7 +17,7 @@ const tenatRegistration = async (req, res) => {
     email,
     rentDeposit,
     waterReading,
-    waterDeposit,
+    waterDeposite,
     userName,
     phoneNumber,
     previousBalance,
@@ -51,7 +51,7 @@ const tenatRegistration = async (req, res) => {
         email,
         rentDeposit,
         waterReading,
-        waterDeposit,
+        waterDeposite,
         userName,
         houseName,
         rentPaymentDate,
@@ -129,11 +129,11 @@ const paymentsCreations = async (req, res) => {
 
   try {
     const updatedPaymentArray = Object.values(updatedPayment);
-    const tenant = await tenantRegistration.findAll({
-      where: {
-        houseId: 2,
-      },
-    });
+    // const tenant = await tenantRegistration.findAll({
+    //   where: {
+    //     houseId: 2,
+    //   },
+    // });
 
     // Iterate over user IDs and create payments for each user
     for (const tenantUpdate of updatedPaymentArray) {
@@ -144,9 +144,8 @@ const paymentsCreations = async (req, res) => {
         amount: amount,
         paymentType: paymentType,
         dateTime: dateTime,
-        userId: id,
+        tenantId: id,
       });
-
 
       await balanceCf.create({
         where: {
@@ -175,12 +174,11 @@ const ContinousPaymentsCreations = async (req, res) => {
   try {
     const updatedPaymentArray = Object.values(updatedPayment);
 
-    console.log(updatedPaymentArray);
-    const tenant = await tenantRegistration.findAll({
-      where: {
-        houseId: id,
-      },
-    });
+    // const tenant = await tenantRegistration.findAll({
+    //   where: {
+    //     houseId: id,
+    //   },
+    // });
 
     // Iterate over user IDs and create payments for each user
     for (const tenantUpdate of updatedPaymentArray) {
@@ -213,13 +211,13 @@ const getPayments = async (req, res) => {
     const tenantsId = tenant.map((data) => data.id);
 
     const paymentData = await payments.findAll({
-      where: { userId: tenantsId },
+      where: { tenantId: tenantsId },
     });
 
     const totalAdditionalPayments = await Promise.all(
-      tenantsId.map(async (tenantId) => {
+      tenantsId.map(async (id) => {
         const paymentData = await payments.findAll({
-          where: { userId: tenantId },
+          where: { tenantId: id },
         });
 
         const totalAmount = paymentData.reduce((acc, detail) => {
