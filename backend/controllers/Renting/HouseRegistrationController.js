@@ -13,7 +13,7 @@ const balanceCf = require("../../models/balanceCF");
 // const users = require("../../models/UserModels.js");
 
 const getAllHouses = async (req, res) => {
-  const page_size = 10;
+  const page_size = 100;
   const page = parseInt(req.query.page) || 1;
   const offset = (page - 1) * page_size;
   const pageNumbers = [];
@@ -27,12 +27,6 @@ const getAllHouses = async (req, res) => {
     include: [{ model: users, as: "tenant" }],
   });
   const tenant = await tenantRegistration.findAll({});
-
-  const tenantsId = tenant.map((data) => data.id);
-
-  // const paymentData = await payments.findAll({
-  //   where: { tenantId: tenantsId },
-  // });
 
   try {
     const detailsWithTotal = details?.rows?.map((detail) => {
@@ -56,7 +50,6 @@ const getAllHouses = async (req, res) => {
         balance,
       };
     });
-
 
     const totalPages = Math.ceil(detailsWithTotal.length / page_size);
 

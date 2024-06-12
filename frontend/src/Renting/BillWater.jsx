@@ -11,7 +11,8 @@ function BillWater() {
   const [date, setDate] = useState(null);
   const [updatedUsers, setUpdatedUsers] = useState({});
   const [tenant, setTenant] = useState([]);
-  const state = useLocation().state; // am  using one for to create and update
+  const state = useLocation().state;
+
 
   // water bill total
 
@@ -47,7 +48,8 @@ function BillWater() {
       // Send a batch update request to the server
       const response = await api(
         `/Tenant/updateWaterBill`,
-        "PUT", {},
+        "PUT",
+        {},
         { updatedTenants }
       );
       toast.success("Added successfully");
@@ -61,7 +63,25 @@ function BillWater() {
       <div className=" px-20 shadow-xl shadow-indigo-100 rounded-lg mt-16">
         <div className="flex flex-col justify-center items-center mt-10">
           <div className="card w-full p-6 bg-base-100  ">
-          <span className='mb-10 font-bold text-3xl capitalize text-green-500 '> bill water </span>
+            <div className="flex flex-row flex-wrap justify-between">
+
+            <span className="mb-10 font-bold text-3xl capitalize text-green-500 ">
+              {" "}
+              bill water{" "}
+            </span>
+            <span>
+
+            <Link
+              to={`/admin/water-report/${houseId}`}
+              state={tenant} 
+              class="text-white bg-gradient-to-r mt-6 from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+            >
+              Water Report 
+            </Link>
+            </span>
+
+            </div>
+
             <div className="divider mt-2"></div>
             {/* Team Member list in table format loaded constant */}
             <div className="overflow-x-auto w-full">
@@ -122,7 +142,6 @@ function BillWater() {
                         }
                       />
                     </td>
-                    
 
                     <td>
                       {tenants.totalWaterReadings <= 0
@@ -179,8 +198,6 @@ function BillWater() {
           />
         </div>
 
-        {/* water reportsection  */}
-        <WaterBill tenant={tenant} waterUnits={waterUnits} state={state} />
       </div>
     </>
   );

@@ -131,6 +131,7 @@ function House() {
     getAgent();
   }, [houseName, houseId]);
 
+
   const handleNext = async () => {
     const nextPage = pagination.currentPage + 1;
     setPageNum(nextPage);
@@ -289,7 +290,6 @@ function House() {
         console.log(error);
       }
     };
-    console.log(bcf);
 
     getBcf();
     handleFetchPayments();
@@ -561,13 +561,13 @@ function House() {
               Generate House Report
             </Link>
 
-            <Link
-              to={`/addtionalPayments/${houseId}`}
+            {/* <Link
+              to={`/admin/water-report/${houseId}`}
               className="block w-full text-center   no-underline bg-gradient-to-r from-green-400 via-green-500 to-green-600  rounded-md bg-teal-600 px-5 py-2.5 text-lg  font-bold font-serif  text-white transition hover:bg-teal-700 capitalize"
               href="/"
             >
               Water Report
-            </Link>
+            </Link> */}
 
             <button
               onClick={() => toPDF()}

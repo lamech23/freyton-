@@ -43,7 +43,8 @@ const fetchRecentBalance = async (req, res) => {
 
     // Use reduce to keep only the most recent payment for each tenantId
     const recentPayments = sortedPayments?.reduce((acc, amnt) => {
-      acc[amnt.tenantId] = amnt; // Since sorted by date, the last occurrence will be the most recent
+      acc[amnt.tenantId] = amnt;
+      // Since sorted by date, the last occurrence will be the most recent
       return acc;
     }, {});
 
@@ -79,9 +80,6 @@ const fetchRecentBalance = async (req, res) => {
       const waterBillPerTenant = waterUnits * waterPrice;
       const waterBill = waterBillPerTenant <= 0 ? 0 : waterBillPerTenant;
 
-      //current mont
-      const currentMonth = moment().format("MMM");
-
       const firstPayment = continousTransactions;
 
       let firstPaymentDone = false;
@@ -106,16 +104,24 @@ const fetchRecentBalance = async (req, res) => {
       firstPaymentDone = true;
 
       if (firstPaymentDone) {
-        const amount = paymentOne;
+        const latestPaymentMonth = moment(
+          filteredTenants
+            .map((item) => item.createdAt)
+            .sort((a, b) => moment(b).diff(a))[0]
+        ).format("MM");
+
+        const currentMonth = moment().format("MM");
+      
+
+        const isNewMonth = currentMonth !== latestPaymentMonth;
+
+        const amount = isNewMonth
+          ? paymentOne - Number(tenants.payableRent)
+          : paymentOne;
 
         cron.schedule("* * 5 * *", () => {
-          console.log(`runing procces ${amount}`);
-
           currentBalance(amount, tenant);
         });
-        const checkUserMonth = moment(tenant.createdAt).format("MM");
-        const currentMonth  = moment().format("MM")
-         let checkMonth = checkUserMonth === currentMonth 
 
         return {
           tenantId: tenant.id,

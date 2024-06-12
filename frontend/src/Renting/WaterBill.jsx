@@ -1,6 +1,39 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom';
+import { api } from '../utils/Api';
+import { toast, ToastContainer } from "react-toastify";
 
-function WaterBill({tenant, waterUnits, state}) {
+
+function WaterBill() {
+  const [getWater, setGetWater] = useState([]);
+  let houseId = useLocation().pathname.split("/")[3];
+
+
+  const tenant = useLocation().state; 
+
+  useEffect(() => {
+    const getWaterRates = async () => {
+      try {
+        const res = await api(
+          `/water/fetchWater/${houseId}`,
+          "GET",
+          {},
+          {}
+        );
+        setGetWater(res?.getWater);
+      } catch (error) {
+        toast.error("water rates not found " || error.massage);
+      }
+    };
+    getWaterRates();
+  }, []);
+
+
+  const waterUnits = getWater
+  ?.map((house) => {
+    return house.price;
+  })
+  .slice(-1)[0];
   return (
     <div>
 
@@ -46,8 +79,8 @@ function WaterBill({tenant, waterUnits, state}) {
                      
                     </tr>
                   </thead>
-                  {tenant?.map((tenants) => (
-                    <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                  {tenant?.map((tenants, index) => (
+                    <tbody key={index} className="divide-y divide-gray-200 dark:divide-gray-700">
                       <tr>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-600">
                           {tenants.tenantsName}
@@ -62,8 +95,7 @@ function WaterBill({tenant, waterUnits, state}) {
                         </td>
 
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-600">
-                          {state &&
-                            state?.map((house) => house.price).slice(-1)[0]}
+                          {waterUnits}
                         </td>
                         <td
                           className={`px-6 py-4 whitespace-nowrap text-sm ${
@@ -85,6 +117,18 @@ function WaterBill({tenant, waterUnits, state}) {
             </div>
           </div>
         </div>
+        <ToastContainer
+        position="top-left"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       </div>
   )
 }

@@ -10,6 +10,7 @@ import moment from "moment";
 function ContinuousPayment() {
   let houseId = useLocation().pathname.split("/")[2];
   let continuousPayment = useLocation().state;
+  console.log(continuousPayment.length);
   const [currnetMonth, setCurrentMonth] = useState(moment().format("MMM"));
 
   const [dateTime, setDateTime] = useState({});
@@ -19,6 +20,7 @@ function ContinuousPayment() {
   const [updatedUsers, setUpdatedUsers] = useState({});
 
   const [tenant, setTenant] = useState([]);
+  console.log(tenant.length);
 
   const findPayment = tenant?.map((user) => {
     const payment = continuousPayment?.find((payment) => {
@@ -101,10 +103,8 @@ function ContinuousPayment() {
               </tr>
             </thead>
             {tenant?.map((tenants, index) =>
-              continuousPayment?.map(
-                (user) =>
-                    moment(user.createdAt).format("MM") !== moment().format("MM")
-              ) ? null :  (
+              continuousPayment?.find(
+                (user) =>  user.tenantId === tenants.id   )   ? null :  (
                 <tbody key={index}>
                   {" "}
                   <tr>
