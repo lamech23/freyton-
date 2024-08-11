@@ -10,7 +10,6 @@ import moment from "moment";
 function ContinuousPayment() {
   let houseId = useLocation().pathname.split("/")[2];
   let continuousPayment = useLocation().state;
-  console.log(continuousPayment.length);
   const [currnetMonth, setCurrentMonth] = useState(moment().format("MMM"));
 
   const [dateTime, setDateTime] = useState({});
@@ -20,7 +19,6 @@ function ContinuousPayment() {
   const [updatedUsers, setUpdatedUsers] = useState({});
 
   const [tenant, setTenant] = useState([]);
-  console.log(tenant.length);
 
   const findPayment = tenant?.map((user) => {
     const payment = continuousPayment?.find((payment) => {
@@ -29,7 +27,6 @@ function ContinuousPayment() {
 
     return payment;
   });
-
 
   useEffect(() => {
     const getTenantinfo = async () => {
@@ -42,6 +39,7 @@ function ContinuousPayment() {
     };
     getTenantinfo();
   }, [continuousPayment]);
+
 
   const creatingPayment = async (e) => {
     e.preventDefault();
@@ -63,6 +61,10 @@ function ContinuousPayment() {
       toast.success("payment created");
     }
   };
+
+
+  const currentMonth = moment().format('MMM');
+
 
   return (
     <>
@@ -103,8 +105,8 @@ function ContinuousPayment() {
               </tr>
             </thead>
             {tenant?.map((tenants, index) =>
-              continuousPayment?.find(
-                (user) =>  user.tenantId === tenants.id   )   ? null :  (
+              
+             
                 <tbody key={index}>
                   {" "}
                   <tr>
@@ -146,7 +148,6 @@ function ContinuousPayment() {
                       <input
                         type="date"
                         className=" border border-gray-400 w-full p-4 rounded-lg "
-                        value={dateTime}
                         onChange={(e) =>
                           setUpdatedUsers({
                             ...updatedUsers,
@@ -164,7 +165,6 @@ function ContinuousPayment() {
                         class="
                         p-6 rounded-lg 
                         "
-                        value={paymentType}
                         onChange={(e) =>
                           setUpdatedUsers({
                             ...updatedUsers,
@@ -182,8 +182,10 @@ function ContinuousPayment() {
                       </select>
                     </td>
                   </tr>
-                </tbody>
-              )
+                </tbody> 
+
+            
+            
             )}
           </table>
 

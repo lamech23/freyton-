@@ -44,6 +44,7 @@ function Navbar() {
               <div class="inline-block w-20 h-20 rounded-full overflow-hidden">
                 <img src={logo} alt="Logo" class="w-full h-full object-cover" />
               </div>
+              
               <p class="text-blue-400 text-2xl font-bold mt-3">Freyton Homes</p>
             </div>
           </a>
@@ -114,7 +115,7 @@ function Navbar() {
               open ? "top-52 bg-gray-50 z-40 " : "top-[-490px]"
             }`}
           >
-            <li class="max-lg:border-b max-lg:py-2 px-5">
+            {/* <li class="max-lg:border-b max-lg:py-2 px-5">
               <Link
                 to="/"
                 class="hover:text-[#007bff] text-[15px] text-gray-600 block font-bold"
@@ -129,9 +130,9 @@ function Navbar() {
               >
                 About
               </Link>
-            </li>
+            </li> */}
 
-            {admin ? (
+            {/* {admin ? (
               <li class="max-lg:border-b max-lg:py-2 px-5">
                 <a
                   href="/admin/analytics"
@@ -141,7 +142,7 @@ function Navbar() {
                   Dashboard
                 </a>
               </li>
-            ) : null}
+            ) : null} */}
           </ul>
         </div>
         <Search />

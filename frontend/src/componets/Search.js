@@ -10,7 +10,6 @@ function Search() {
   const [isLoading, setIsLoading] = useState(false); // Control loading state.
   const [search, setSearch] = useState(""); // Store the user's search query.
   const navigate = useNavigate();
-  console.log(search);
   // Function to handle search and navigate based on search results.
   const handleSearch = () => {
     if (results?.length > 0) {
@@ -73,7 +72,7 @@ function Search() {
           <input
             type="search"
             id="default-search"
-            class="w-full outline-none bg-transparent text-gray-600 font-semibold text-[15px]"
+            className="w-full outline-none bg-transparent text-gray-600 font-semibold text-[15px]"
             placeholder="  Search for house category, price location"
             value={search}
             onChange={handleChange}

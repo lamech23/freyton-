@@ -7,8 +7,8 @@ function AllRequest() {
 
   const fetchRequests = async () => {
     const response = await axios.get(
-      // "http://localhost:4000/proccess/fetchRequests"
-      "https://winton.freytonhomes.com/proccess/fetchRequests"
+      "http://localhost:4000/proccess/fetchRequests"
+      // "https://winton.freytonhomes.com/proccess/fetchRequests"
       
     );
     setRequest(response.data.requests);
@@ -18,8 +18,8 @@ function AllRequest() {
   }, []);
 
   const handlepdate = async (id, read) => {
-    await axios.patch(`https://winton.freytonhomes.com/proccess/update-status/${id}?read=` + read);
-    // await axios.patch(`http://localhost:4000/proccess/update-status/${id}?read=` + read);
+    // await axios.patch(`https://winton.freytonhomes.com/proccess/update-status/${id}?read=` + read);
+    await axios.patch(`http://localhost:4000/proccess/update-status/${id}?read=` + read);
   };
   const updateRequests = (id) => {
     let read = 1;

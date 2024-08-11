@@ -439,22 +439,6 @@ const getRelevantAgentToAhouse = async (req, res) => {
   } catch (error) {}
 };
 
-// const deletingHouseAdminSide = async(req, res )=>{
-//   try {
-//     const { id } = req.params;
-//     const details = await Details.destroy({
-//       where: {
-//         id: id,
-//       },
-//     });
-//     if (!details) {
-//       return res.status(400).json({ error: "Details doesn't exist " });
-//     }
-//     res.status(200).json(details);
-//   } catch (error) {
-
-//   }
-// }
 
 module.exports = {
   createDetails,

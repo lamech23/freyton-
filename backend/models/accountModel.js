@@ -50,6 +50,13 @@ userAccount.belongsTo(users, {
   as: "user",
 });
 
+users.hasOne(userAccount,{
+  foreignKey: "userId",
+  as: "account"
+
+
+})
+
 
 
 db.sync()

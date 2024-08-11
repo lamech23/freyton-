@@ -30,6 +30,7 @@ function AdditinalPaymants() {
 
   const creatingPayment = async (e) => {
     e.preventDefault();
+    console.log(updatedUsers, "this one ");
 
     const updatedPayment = Object.entries(updatedUsers).map(([id, values]) => ({
       id,
@@ -78,12 +79,12 @@ function AdditinalPaymants() {
                 </th>
               </tr>
             </thead>
-              {tenant?.map((tenants) => (
+              {tenant?.map((tenants, index) => (
             <tbody class={` ${
               tenants.id == (userId) ?  ' bg-gradient-to-r from-green-400  via-green-500 to-green-700 ': 'bg-white'
             }` }>
               {" "}
-                <tr key={tenants.id}>
+                <tr key={index}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-black">
                     {tenants.id}
                   </td>
@@ -114,7 +115,6 @@ function AdditinalPaymants() {
                     <input
                       type="date"
                       className=" border border-gray-400 w-full p-4 rounded-lg "
-                      value={dateTime}
                       onChange={(e) =>
                         setUpdatedUsers({
                           ...updatedUsers,
@@ -132,7 +132,6 @@ function AdditinalPaymants() {
                       class="
                         p-6 rounded-lg 
                         "
-                      value={paymentType}
                       onChange={(e) =>
                         setUpdatedUsers({
                           ...updatedUsers,

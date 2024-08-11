@@ -1,8 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { api } from "../utils/Api";
 
 function FinalReport() {
   const reportData = useLocation().state;
+  const [payments, setPayments] = useState([])
+
 
   // total calculation for rent
   const finalRentSum = reportData
@@ -18,6 +21,25 @@ function FinalReport() {
   const finalBalanceSum = reportData
     ?.map((data) => data.totalBalance)
     .reduce((prev, next) => prev + next, 0);
+
+  //   useEffect(() => {
+  //     const getPayments = async (id) => {
+  //     try {
+  //       const response = await api(
+  //         `/Tenant/fetchPayment/?userId=${id}`,
+  //         "GET",
+  //         {},
+  //         {}
+  //       );
+  //       setPayments(response?.totalAdditionalPayments);
+  //     } catch (error) {}
+  //   };
+  //     getPayments();
+  // }, []);
+
+
+
+
 
 
   let totalSum = finalRentSum + finalWaterBillSum + finalBalanceSum;
@@ -69,14 +91,12 @@ function FinalReport() {
                   <th class="text-left text-sm text-white px-4 lg:py-2 border-2 ">
                     Rent Paid
                   </th>
-                  <th class="text-left text-sm text-white px-4 lg:py-2  border-2  ">
-                    Period
-                  </th>
+                 
                   <th class="text-left text-sm text-white px-4 lg:py-2  border-2  ">
                     Payment Date
                   </th>
                   <th class="text-left text-sm text-white px-4 lg:py-2  border-2  ">
-                    AMount Paid
+                    Amount Paid
                   </th>
                   <th class="text-left text-sm text-white px-4 lg:py-2  border-2  ">
                    Water
@@ -109,11 +129,16 @@ function FinalReport() {
                         {metaDeta.tenantsName}
                       </td>
                       <td class="text-gray-700 px-4 py-2">
-                        ksh {metaDeta.totalAmount}
+                        ksh  {metaDeta.totalAmount}
                       </td>
                       <td class="text-gray-700 px-4 py-2">
                         Ksh {metaDeta.water_bill}
                       </td>
+
+                      <td class="text-gray-700 px-4 py-2">
+                         {metaDeta.rentPaymentDate}
+                      </td>
+
                       <td
                         className={`
                 ${metaDeta.totalBalance < 0 ? "text-red-600" : "text-green-600"}

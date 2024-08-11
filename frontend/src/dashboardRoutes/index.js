@@ -17,6 +17,7 @@ const request = lazy(() => import('../componets/AllRequest'))
 const paymentView = lazy(() => import('../Renting/PaymentView'))
 const singlePayment = lazy(() => import('../Renting/SinglePayment'))
 const waterReports = lazy(() => import('../Renting/WaterBill'))
+const notice = lazy(() => import('../Admin/Notice'))
 
 
 
@@ -83,6 +84,11 @@ const routes = [
   {
     path: '/water-report/:id',
     component: waterReports
+  },
+
+  {
+    path: '/notice',
+    component: notice
   }
 
 

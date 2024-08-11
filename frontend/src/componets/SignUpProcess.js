@@ -28,8 +28,8 @@ function SignUpProcess({ email, closeModal }) {
     e.preventDefault();
     console.log("before request");
 
-    // const createRequest = await axios.post("http://localhost:4000/proccess/", {
-      const createRequest = await axios.post("https://winton.freytonhomes.com/proccess/", {
+    const createRequest = await axios.post("http://localhost:4000/proccess/", {
+      // const createRequest = await axios.post("https://winton.freytonhomes.com/proccess/", {
       
       email,
       message,

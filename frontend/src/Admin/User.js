@@ -288,6 +288,13 @@ function User() {
                           >
                             Verify
                           </button>{" "}
+                          <Link
+                            to={"/admin/notice"}
+                            state={allUsers.email}
+                            class="text-white  bg-green-400 focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-200 font-medium rounded-lg text-sm px-2 py-1 text-center me-2 mb-2"
+                          >
+                            Notice 
+                          </Link>{" "}
                         </td>
                       </tr>
                     </tbody>

@@ -174,12 +174,7 @@ const ContinousPaymentsCreations = async (req, res) => {
   try {
     const updatedPaymentArray = Object.values(updatedPayment);
 
-    // const tenant = await tenantRegistration.findAll({
-    //   where: {
-    //     houseId: id,
-    //   },
-    // });
-
+  
     // Iterate over user IDs and create payments for each user
     for (const tenantUpdate of updatedPaymentArray) {
       const { id, amount, paymentType, dateTime } = tenantUpdate;

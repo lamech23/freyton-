@@ -65,9 +65,9 @@ function BillWater() {
           <div className="card w-full p-6 bg-base-100  ">
             <div className="flex flex-row flex-wrap justify-between">
 
-            <span className="mb-10 font-bold text-3xl capitalize text-green-500 ">
+            <span className="mb-10 font-bold text-3xl  text-green-500 uppercase ">
               {" "}
-              bill water{" "}
+               water billing {" "}
             </span>
             <span>
 

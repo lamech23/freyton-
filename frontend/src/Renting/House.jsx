@@ -40,8 +40,17 @@ function House() {
   const [pagination, setPagination] = useState({});
   const [pageNum, setPageNum] = useState(1);
   const [contPayment, setContPayment] = useState([]);
+  const [openAction, setIsOpenAction] = useState(false);
 
   const [bcf, setBcf] = useState([]);
+
+
+  const toggleOpen = (id) => {
+    setIsOpenAction(!openAction)
+ 
+    
+ 
+  };
   // Function to handle starting a new month
   const startNewMonth = (direction) => {
     const currentMoment = moment(currentMonth, "MMM");
@@ -130,7 +139,6 @@ function House() {
     getHouse();
     getAgent();
   }, [houseName, houseId]);
-
 
   const handleNext = async () => {
     const nextPage = pagination.currentPage + 1;
@@ -294,6 +302,7 @@ function House() {
     getBcf();
     handleFetchPayments();
   }, []);
+
 
   const filteredProducts = pagination?.currentPosts?.filter((item) => {
     const matchesQuery = keys.some((key) => {
@@ -509,7 +518,7 @@ function House() {
             <button
               type="button"
               onClick={openModal}
-              className=" w-full    text-center   no-underline rounded-md bg-gradient-to-r from-green-400 via-green-500 to-green-600  text-lg font-serif  font-bold text-white transition hover:bg-teal-700 capitalize"
+              className=" text-green-900 hover:text-white border border-green-800 hover:bg-green-900 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-600 dark:text-green-400 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
             >
               Add Tenant
             </button>
@@ -517,14 +526,14 @@ function House() {
             <button
               type="button"
               onClick={openModalRate}
-              className="block w-full text-center   no-underline bg-gradient-to-r from-green-400 via-green-500 to-green-600  rounded-md bg-teal-600 px-5 py-2.5 text-lg  font-bold font-serif  text-white transition hover:bg-teal-700 capitalize"
+              className="text-green-900 hover:text-white border border-green-800 hover:bg-green-900 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-600 dark:text-green-400 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
             >
               Add Water Rate
             </button>
             <button
               type="button"
               onClick={openGarbage}
-              className="block w-full text-center   no-underline bg-gradient-to-r from-green-400 via-green-500 to-green-600  rounded-md bg-teal-600 px-5 py-2.5 text-lg  font-bold font-serif  text-white transition hover:bg-teal-700 capitalize"
+              className="text-green-900 hover:text-white border border-green-800 hover:bg-green-900 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-600 dark:text-green-400 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
             >
               Garbage
             </button>
@@ -532,7 +541,7 @@ function House() {
             <Link
               to={`/payments/${visitedHouseId}`}
               state={getWater}
-              className="block w-full text-center   no-underline bg-gradient-to-r from-green-400 via-green-500 to-green-600  rounded-md bg-teal-600 px-5 py-2.5 text-lg  font-bold font-serif  text-white transition hover:bg-teal-700 capitalize"
+              className="text-green-900 hover:text-white border border-green-800 hover:bg-green-900 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-600 dark:text-green-400 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
               href="/"
             >
               bill water
@@ -541,21 +550,21 @@ function House() {
             <Link
               to={`/continuous-payment/${visitedHouseId}`}
               state={contPayment}
-              className="block w-full text-center   no-underline bg-gradient-to-r from-green-400 via-green-500 to-green-600  rounded-md bg-teal-600 px-5 py-2.5 text-lg  font-bold font-serif  text-white transition hover:bg-teal-700 capitalize"
+              className="text-green-900 hover:text-white border border-green-800 hover:bg-green-900 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-600 dark:text-green-400 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
             >
               Continous Payment
             </Link>
 
             <Link
               to={`/addtionalPayments/${visitedHouseId}`}
-              className="block w-full text-center   no-underline bg-gradient-to-r from-green-400 via-green-500 to-green-600  rounded-md bg-teal-600 px-5 py-2.5 text-lg  font-bold font-serif  text-white transition hover:bg-teal-700 capitalize"
+              className="text-green-900 hover:text-white border border-green-800 hover:bg-green-900 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-600 dark:text-green-400 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
               href="/"
             >
               additinal payments
             </Link>
             <Link
               to={`/final-report`}
-              className="block w-full text-center   no-underline bg-gradient-to-r from-green-400 via-green-500 to-green-600  rounded-md bg-teal-600 px-5 py-2.5 text-lg  font-bold font-serif  text-white transition hover:bg-teal-700 capitalize"
+              className="text-green-900 hover:text-white border border-green-800 hover:bg-green-900 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-600 dark:text-green-400 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
               state={finalReport}
             >
               Generate House Report
@@ -563,7 +572,7 @@ function House() {
 
             {/* <Link
               to={`/admin/water-report/${houseId}`}
-              className="block w-full text-center   no-underline bg-gradient-to-r from-green-400 via-green-500 to-green-600  rounded-md bg-teal-600 px-5 py-2.5 text-lg  font-bold font-serif  text-white transition hover:bg-teal-700 capitalize"
+              className="text-green-900 hover:text-white border border-green-800 hover:bg-green-900 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-600 dark:text-green-400 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
               href="/"
             >
               Water Report
@@ -571,14 +580,14 @@ function House() {
 
             <button
               onClick={() => toPDF()}
-              className="block w-full text-center   no-underline bg-gradient-to-r from-green-400 via-green-500 to-green-600  rounded-md bg-teal-600 px-5 py-2.5 text-lg  font-bold font-serif  text-white transition hover:bg-teal-700 capitalize"
+              className="text-green-900 hover:text-white border border-green-800 hover:bg-green-900 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-600 dark:text-green-400 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
             >
               Download
             </button>
             <Link
               to="/report"
               state={houseName}
-              className="block w-full text-center   no-underline bg-gradient-to-r from-green-400 via-green-500 to-green-600  rounded-md bg-teal-600 px-5 py-2.5 text-lg  font-bold font-serif  text-white transition hover:bg-teal-700 capitalize"
+              className="text-green-900 hover:text-white border border-green-800 hover:bg-green-900 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-600 dark:text-green-400 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
             >
               report
             </Link>
@@ -589,7 +598,7 @@ function House() {
                 sheet="users"
                 currentTableRef={tableRef.current}
               >
-                <button className="block w-full text-center   no-underline bg-gradient-to-r from-green-400 via-green-500 to-green-600  rounded-md bg-teal-600 px-5 py-2.5 text-lg  font-bold font-serif  text-white transition hover:bg-teal-700 capitalize">
+                <button className="text-green-900 hover:text-white border border-green-800 hover:bg-green-900 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-600 dark:text-green-400 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800">
                   Export excel{" "}
                 </button>
               </DownloadTableExcel>
@@ -599,7 +608,9 @@ function House() {
       </header>
       <div className="card w-full p-6 bg-base-100  ">
         <div className="flex flex-row justify-between items-center ">
-          <p className="text-3xl font-bold text-teal-600">Tenants</p>
+          <p className="text-3xl font-bold text-teal-600  uppercase">
+            House tenants
+          </p>
 
           <div className="flex flex-row gap-4">
             <input
@@ -679,186 +690,177 @@ function House() {
               </tr>
             </thead>
 
-            {filteredProducts?.map((tenants, index) =>
-              contPayment &&
-              // contPayment?.find((amnt) => amnt.tenantId === tenants.id) ? (
-                <tbody onClick={() => handleUser(tenants.id)}>
-                  <tr
-                    key={index}
-                    class="cursor-pointer bg-[#f6f8fa] drop-shadow-[0_0_10px_rgba(34,46,58,0.02)] hover:shadow-2xl"
-                  >
-                    <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                      {tenants.houseNumber}
-                    </td>
-                    <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                      {tenants.tenantsName}
-                    </td>
-                    <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                      {tenants.payableRent}
-                    </td>
-                    <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                      {moment(tenants.createdAt).format("MMM") !== currentMonth
-                        ? 0
-                        : tenants.rent}
-                    </td>
-                    <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                      {payments &&
-                        Object.values(payments).map((paymentData, index) => {
-                          const matchingObjects = Object.values(
-                            paymentData
-                          ).filter((obj) => obj.tenantId === tenants.id);
-
-                          const paymentsForCurrentMonth =
-                            matchingObjects.filter((payment) => {
-                              const isCurrentMonth =
-                                moment(payment.dateTime).format("MMM") ===
-                                currentMonth;
-
-                              return isCurrentMonth;
-                            });
-
-                          if (paymentsForCurrentMonth.length > 0) {
-                            const totalAmount = paymentsForCurrentMonth.reduce(
-                              (sum, obj) => sum + Number(obj.amount),
-                              0
-                            );
-
-                            return (
-                              <React.Fragment key={index}>
-                                {paymentsForCurrentMonth.map(
-                                  (matchingObject, innerIndex) => (
-                                    <tr
-                                      key={`${index}-${innerIndex}`}
-                                      className="flex flex-row justify-center items-center   "
-                                    >
-                                      <td className="flex flex-row gap-2 text-gray-600 text-sm   p-2">
-                                        <p className="whitespace-nowrap rounded-full bg-greeen-100 px-2.5 py-0.5 bg-rose-200 text-sm text-rose-700">
-                                          {" "}
-                                          {
-                                            monthsShort[
-                                              new Date(
-                                                matchingObject.createdAt
-                                              ).getMonth()
-                                            ]
-                                          }
-                                          -{innerIndex + 1}{" "}
-                                        </p>
-                                        <p className="text-green-400">
-                                          {matchingObject.amount}
-                                        </p>
-                                      </td>
-                                      <td className=" text-gray-600 text-sm  ">
-                                        {moment(matchingObject.dateTime).format(
-                                          "MMM Do YY"
-                                        )}
-                                      </td>
-                                      <td className=" text-gray-600 text-sm  ">
-                                        {matchingObject.paymentType}
-                                      </td>
-                                    </tr>
-                                  )
-                                )}
-                                <tr className="flex flex-row justify-around  items-center">
-                                  <td className="    text-green-600">
-                                    New Rent:{" "}
-                                    {moment(tenants.createdAt).format("MMM") ===
-                                    currentMonth
-                                      ? totalAmount + 0
-                                      : totalAmount + Number(tenants.payableRent)}
-                                  </td>
-                                </tr>
-                              </React.Fragment>
-                            );
-                          }
-
-                          return null;
-                        })}{" "}
-                    </td>
-                    <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                      {tenants.rentDeposit}
-                    </td>
-
-                    <td
-                      className={`  ${
-                        moment(tenants.createdAt).format("MMM") !== currentMonth
-                          ? "text-green-600"
-                          : "text-red-600"
-                      }`}
+            {filteredProducts?.map(
+              (tenants, index) =>
+                contPayment && (
+                  // contPayment?.find((amnt) => amnt.tenantId === tenants.id) ? (
+                  <tbody>
+                    <tr
+                      key={index}
+                      class="cursor-pointer bg-[#f6f8fa] drop-shadow-[0_0_10px_rgba(34,46,58,0.02)] hover:shadow-2xl"
                     >
-                      {moment(tenants.createdAt).format("MMM") === currentMonth
-                        ? tenants?.totalWaterReadings < 0
-                          ? 0 * Number(waterUnits)
-                          : tenants?.totalWaterReadings * Number(waterUnits)
-                        : 0}
-                    </td>
+                      <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
+                        {tenants.houseNumber}
+                      </td>
+                      <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
+                        {tenants.tenantsName}
+                      </td>
+                      <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
+                        {tenants.payableRent}
+                      </td>
+                      <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
+                        {moment(tenants.createdAt).format("MMM") !==
+                        currentMonth
+                          ? 0
+                          : tenants.rent}
+                      </td>
+                      <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
+                        {payments &&
+                          Object.values(payments).map((paymentData, index) => {
+                            const matchingObjects = Object.values(
+                              paymentData
+                            ).filter((obj) => obj.tenantId === tenants.id);
 
-                    <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                      {getGarbage &&
-                        getGarbage?.map((house) => house.price).slice(-1)[0]}
-                    </td>
+                            const paymentsForCurrentMonth =
+                              matchingObjects.filter((payment) => {
+                                const isCurrentMonth =
+                                  moment(payment.dateTime).format("MMM") ===
+                                  currentMonth;
 
-                    <td className="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                      {(() => {
-                        const currentMonthPayments = bcf
-                          .filter((item) => item.tenantId === tenants.id)
-                          .map((item) => item.amount);
+                                return isCurrentMonth;
+                              });
 
-                        // const latestPaymentMonth = moment(
-                        //   bcf
-                        //     .filter((item) => item.tenatId === tenants.id)
-                        //     .map((item) => item.createdAt)
-                        //     .sort((a, b) => moment(b).diff(a))[0]
-                        // ).format("MMM");
+                            if (paymentsForCurrentMonth.length > 0) {
+                              const totalAmount =
+                                paymentsForCurrentMonth.reduce(
+                                  (sum, obj) => sum + Number(obj.amount),
+                                  0
+                                );
 
-                        // const tenantCreation =
-                        //   moment(tenants.createdAt).format("MMM") ===
-                        //   currentMonth;
-                        // const isNewMonth = currentMonth !== latestPaymentMonth;
+                              return (
+                                <React.Fragment key={index}>
+                                  {paymentsForCurrentMonth.map(
+                                    (matchingObject, innerIndex) => (
+                                      <tr
+                                        key={`${index}-${innerIndex}`}
+                                        className="flex flex-row justify-center items-center   "
+                                      >
+                                        <td className="flex flex-row gap-2 text-gray-600 text-sm   p-2">
+                                          <p className="whitespace-nowrap rounded-full bg-greeen-100 px-2.5 py-0.5 bg-rose-200 text-sm text-rose-700">
+                                            {" "}
+                                            {
+                                              monthsShort[
+                                                new Date(
+                                                  matchingObject.createdAt
+                                                ).getMonth()
+                                              ]
+                                            }
+                                            -{innerIndex + 1}{" "}
+                                          </p>
+                                          <p className="text-green-400">
+                                            {matchingObject.amount}
+                                          </p>
+                                        </td>
+                                        <td className=" text-gray-600 text-sm  ">
+                                          {moment(
+                                            matchingObject.dateTime
+                                          ).format("MMM Do YY")}
+                                        </td>
+                                        <td className=" text-gray-600 text-sm  ">
+                                          {matchingObject.paymentType}
+                                        </td>
+                                      </tr>
+                                    )
+                                  )}
+                                  <tr className="flex flex-row justify-around  items-center">
+                                    <td className="    text-green-600">
+                                      New Rent:{" "}
+                                      {moment(tenants.createdAt).format(
+                                        "MMM"
+                                      ) == currentMonth
+                                        ? totalAmount + Number(tenants.payableRent)
+                                        : totalAmount +
+                                          0}
+                                    </td>
+                                  </tr>
+                                </React.Fragment>
+                              );
+                            }
 
-                        // const totalAmount = currentMonthPayments;
+                            return null;
+                          })}{" "}
+                      </td>
+                      <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
+                        {tenants.rentDeposit}
+                      </td>
 
-                       
-
-                        // const adjustedAmount = isNewMonth
-                        //   ? totalAmount - Number(tenants.payableRent)
-                        //   : totalAmount;
-
-                        return currentMonthPayments;
-                      })()}
-                    </td>
-
-                    <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
-                      {tenants.phoneNumber}
-                    </td>
-
-                    <td>
-                      <Link
-                        to={`/RegisterTenant/?edit=${tenants.id}`}
-                        state={pagination?.currentPosts?.find(
-                          (meteData) => meteData.id === tenants.id
-                        )}
-                        class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                      <td
+                        className={`  ${
+                          moment(tenants.createdAt).format("MMM") !==
+                          currentMonth
+                            ? "text-green-600"
+                            : "text-red-600"
+                        }`}
                       >
-                        {" "}
-                        update{" "}
-                      </Link>
-                      <button
-                        onClick={() => handleDeleteTenant(tenants.id)}
-                        type="button "
-                        class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                      >
-                        Delete
-                      </button>{" "}
-                      <button
-                        onClick={handleDownload}
-                        type="button "
-                        class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                      >
-                        Excel
-                      </button>{" "}
-                    </td>
-                  </tr>
-                </tbody>
+                        {currentMonth
+                          ? tenants?.totalWaterReadings < 0
+                            ? 0 * Number(waterUnits)
+                            : tenants?.totalWaterReadings * Number(waterUnits)
+                          : 0}
+                      </td>
+
+                      <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
+                        {getGarbage &&
+                          getGarbage?.map((house) => house.price).slice(-1)[0]}
+                      </td>
+
+                      <td className="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
+                        {(() => {
+                          const currentMonthPayments = bcf
+                            .filter((item) => item.tenantId === tenants.id)
+                            .map((item) => item.amount);
+
+                          return currentMonthPayments;
+                        })()}
+                      </td>
+
+                      <td class="rounded-l-lg py-4 pl-3 text-sm font-normal text-[#637381]">
+                        {tenants.phoneNumber}
+                      </td>
+
+                      <td class="rounded-l-lg py-4 pl-3 font-normal text-2xl absolute " onClick={() => toggleOpen(tenants.id)}>
+                        ...
+                      </td>
+
+                      <td className={`${openAction == false? 'hidden' : 'flex relative'}`}>
+                        <Link
+                          to={`/RegisterTenant/?edit=${tenants.id}`}
+                          state={pagination?.currentPosts?.find(
+                            (meteData) => meteData.id === tenants.id
+                          )}
+                          class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                        >
+                          {" "}
+                          update{" "}
+                        </Link>
+                        <button
+                          onClick={() => handleDeleteTenant(tenants.id)}
+                          type="button "
+                          class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                        >
+                          Delete
+                        </button>{" "}
+                        <button
+                          onClick={handleDownload}
+                          type="button "
+                          class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                        >
+                          Excel
+                        </button>{" "}
+                      </td>
+                    </tr>
+                  </tbody>
+                )
               // ) : null
             )}
           </table>

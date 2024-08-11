@@ -5,10 +5,12 @@ import "../css/footer.css";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { isAdmin } from "../utils/Decoded";
 
 function Footer() {
   const { user } = useAuthContext();
   const [email, setEmail] = useState("");
+  const admin = isAdmin();
 
   const handelSubmit = async (e) => {
     e.preventDefault();
@@ -34,67 +36,96 @@ function Footer() {
 
   return (
     <div className="container-fixed border-top mt-5 mb-0 text-muted ">
-    <footer class="bg-gray-100">
+      <footer class="bg-gray-100">
         <div class="container px-6 py-12 mx-auto">
-            <div class="mx-auto ">
-                <div class="sm:col-span-2">
-                    <h1 class="max-w-lg text-xl font-semibold tracking-tight text-gray-800 xl:text-2xl">Subscribe our newsletter to get update.</h1>
-                    <p>
-                    By entering your email address below, you consent to
-                    <br /> receiving our newsletter with access to our latest
-                    collections, events and initiatives. More details on this are
-                    provided in our
-                    </p>
-                    <form  onSubmit={handelSubmit} class="flex flex-col mx-auto mt-6 space-y-3 md:space-y-0 md:flex-row">
-                        <input id="email"          value={email}
-                            onChange={(e) => setEmail(e.target.value)} 
-                            type="text" class="px-4 py-2 text-gray-700 bg-white border rounded-md dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300" placeholder="Email Address"/>
-                
-                        <button class="w-full px-6 py-2.5 text-sm font-medium tracking-wider text-white transition-colors duration-300 transform md:w-auto md:mx-4 focus:outline-none bg-gray-800 rounded-lg hover:bg-gray-700 focus:ring focus:ring-gray-300 focus:ring-opacity-80">
-                            Subscribe
-                        </button>
-                    </form>
-                </div>
-            </div>
-            
-            <hr class="my-6 border-gray-200 md:my-8 dark:border-gray-700"/>
-            
-            <div class="flex items-center justify-between">
-              <a
-                href="/HelpCenter"
-                className="text-decoration-none text-center mb-5"
+          <div class="mx-auto ">
+            <div class="sm:col-span-2">
+              <h1 class="max-w-lg text-xl font-semibold tracking-tight text-gray-800 xl:text-2xl">
+                Subscribe our newsletter to get update.
+              </h1>
+              <p>
+                By entering your email address below, you consent to
+                <br /> receiving our newsletter with access to our latest
+                collections, events and initiatives. More details on this are
+                provided in our
+              </p>
+              <form
+                onSubmit={handelSubmit}
+                class="flex flex-col mx-auto mt-6 space-y-3 md:space-y-0 md:flex-row"
               >
-                Help center
-              </a>
-                
-                <div class="flex -mx-2">
-                    <div>
-                  <span className="input-group-text border rounded-pill dispaly-1">
-                    <a href="https://www.facebook.com" target="_blank">
-                      {" "}
-                      <i className="bi bi-facebook"></i>
-                    </a>
-                  </span>
-                </div>
-                <div>
-                  <span className="input-group-text border rounded-pill">
-                    <a href="https://www.instagram.com" target="_blank">
-                      {" "}
-                      <i className="bi bi-instagram"></i>
-                    </a>
-                  </span>
-                </div>
+                <input
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  type="text"
+                  class="px-4 py-2 text-gray-700 bg-white border rounded-md dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300"
+                  placeholder="Email Address"
+                />
 
-                </div>
+                <button class="w-full px-6 py-2.5 text-sm font-medium tracking-wider text-white transition-colors duration-300 transform md:w-auto md:mx-4 focus:outline-none bg-gray-800 rounded-lg hover:bg-gray-700 focus:ring focus:ring-gray-300 focus:ring-opacity-80">
+                  Subscribe
+                </button>
+              </form>
             </div>
+          </div>
 
-                <p className="text-center">
+          <hr class="my-6 border-gray-200 md:my-8 dark:border-gray-700" />
+
+          <div class="flex items-center justify-between">
+            <a
+              href="/HelpCenter"
+              className="text-decoration-none text-center mb-5"
+            >
+              Help center
+            </a>
+
+            <div class="flex -mx-2">
+              <div>
+                <span className="input-group-text border rounded-pill dispaly-1">
+                  <a href="https://www.facebook.com" target="_blank">
+                    {" "}
+                    <i className="bi bi-facebook"></i>
+                  </a>
+                </span>
+              </div>
+              <div>
+                <span className="input-group-text border rounded-pill">
+                  <a href="https://www.instagram.com" target="_blank">
+                    {" "}
+                    <i className="bi bi-instagram"></i>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col flex-wrap items-start justify-start gap-4 " >
+            <span>
+              {admin ? (
+                <a
+                  href="/admin/analytics"
+                  className="text-decoration-none text-center "
+                >
                   {" "}
-                  <i>&copy;{new Date().getFullYear()} Freyton Homes </i>
-                </p>
-        </div>
-    </footer>
+                  Dashboard
+                </a>
+              ) : null}
+            </span>
 
+            <Link to="/" className="text-decoration-none text-center ">
+              Home
+            </Link>
+            <Link to="/About" className="text-decoration-none text-center ">
+              About
+            </Link>
+          </div>
+
+          <p className="text-center">
+            {" "}
+            <i>&copy;{new Date().getFullYear()} Freyton Homes </i>
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }

@@ -18,7 +18,7 @@ function Stats() {
   const [users, setUsers] = useState(0);
   const [activeUser, setActiveUser] = useState(0);
   const [tenant, setTenant] = useState(0);
-  const [landowner, setLandOwner] = useState(0);
+  const [landowner, setLandOwner] = useState(0)
   let navigate = useNavigate();
   const [allUsers, setAllUsers] = useState([]);
   const [payments, setpayments] = useState([]);

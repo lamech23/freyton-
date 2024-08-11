@@ -36,7 +36,6 @@ function MoreAboutUser() {
 
     setIsCameraOn(true);
   };
-webcamRef
 
  const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
