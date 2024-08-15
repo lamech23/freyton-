@@ -27,7 +27,7 @@ function MoreDetails() {
   const [details, setDetails] = useState([]);
   const [location, setLocation] = useState("");
   //clinte info
-  const [names, setNames] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -50,6 +50,7 @@ function MoreDetails() {
     }
   };
 
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("credentials"));
     if (user) setClient_id(user.id);
@@ -63,32 +64,29 @@ function MoreDetails() {
     // const formData = new FormData()
     // formData.append('client_id', client_id)
     try {
-      if (
-        names === "" ||
-        email === "" ||
-        phoneNumber === "" ||
-        details === "" ||
-        gender === ""
-      ) {
-        return toast.error("All fields must be filled in order to submit");
-      } else {
-        const response = await axios.post("https://winton.freytonhomes.com/client", {
-          // const response = await axios.post("http://localhost:4000/client", {
-          names: names,
+      
+        // const response = await axios.post("https://winton.freytonhomes.com/client", {
+        const response = await axios.post("http://localhost:4000/client", {
+          name: name,
+          selectedDate: selectedDate,
           email: email,
           phoneNumber: phoneNumber,
           gender: gender,
           client_id: client_id,
-          details: details,
+          reason: reason,
         });
 
         if (response) {
-          names("");
-          email("");
-          phoneNumber("");
-          details("");
+          setName("");
+          setEmail("");
+          setPhoneNumber("");
+          setReason("");
+          setGender("");
+          setSelectedDate("");
+
+          toast.success("created successfully ")
         }
-      }
+      
     } catch (error) {
       console.log(error);
     }
@@ -97,27 +95,27 @@ function MoreDetails() {
   const handelSelect = async (e) => {
     e.preventDefault();
 
-    if (selectedDate === "" || time === "") {
+    if (selectedDate === "") {
       return toast.error("you must select all fields");
     } else {
       const response = await axios.post(
-        "https://winton.freytonhomes.com/ClientTour/tour ",
-        // "http://localhost:4000/ClientTour/tour",
+        // "https://winton.freytonhomes.com/ClientTour/tour ",
+        "http://localhost:4000/ClientTour/tour",
         {
           selectedDate: selectedDate,
           time: time,
           tour_id: tour_id,
         }
       );
+      console.log(response, "this response ");
     }
   };
   const formData = new FormData();
   formData.append("category", category);
   const fetchDetails = async () => {
     const response = await axios.get(
-      
-      `https://winton.freytonhomes.com/?category=${category}`,
-      // `http://localhost:4000/RelatedHouses/?category=${category}`,
+      // `https://winton.freytonhomes.com/?category=${category}`,
+      `http://localhost:4000/RelatedHouses/?category=${category}`,
       formData
     );
     setDetails(response.data);
@@ -282,27 +280,23 @@ function MoreDetails() {
 
             <div className="">
               <dl>
-              <dt class="sr-only">Title</dt>
+                <dt class="sr-only">Title</dt>
 
-              <dd className=" font-semibold">{detail.title}</dd>
-            
+                <dd className=" font-semibold">{detail.title}</dd>
               </dl>
             </div>
 
-            <p className=" text-sm text-gray-600 mb-2">
-                {detail.location}
-              </p>
+            <p className=" text-sm text-gray-600 mb-2">{detail.location}</p>
 
-
-              <p className="text-center text-gray-700 mb-4">
-                {detail.description}
-              </p>
-              <p className="text-center mb-4">
-                <span className="font-semibold">Contact:</span> {detail.contact}
-              </p>
-              <p className="text-center text-lg font-semibold">
-                Price: {detail.price}
-              </p>
+            <p className="text-center text-gray-700 mb-4">
+              {detail.description}
+            </p>
+            <p className="text-center mb-4">
+              <span className="font-semibold">Contact:</span> {detail.contact}
+            </p>
+            <p className="text-center text-lg font-semibold">
+              Price: {detail.price}
+            </p>
             <p className="text-center mt-2 text-lg text-gray-600">
               {formatDistanceToNow(new Date(detail.createdAt), {
                 addSuffix: true,
@@ -367,8 +361,8 @@ function MoreDetails() {
                             <div class="mt-2">
                               <input
                                 type="text"
-                                onChange={(e) => setNames(e.target.value)}
-                                value={names}
+                                onChange={(e) => setName(e.target.value)}
+                                value={name}
                                 autocomplete="given-name"
                                 class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
                               />
@@ -482,43 +476,6 @@ function MoreDetails() {
                         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                           <div class="sm:col-span-3">
                             <label
-                              for="country"
-                              class="block text-sm font-medium leading-6 text-gray-900"
-                            >
-                              Select Time
-                            </label>
-                            <div class="mt-2">
-                              <select
-                                value={category}
-                                onChange={(e) => setTime(e.target.value)}
-                                autocomplete="country-name"
-                                class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
-                              >
-                                <option selected>please select</option>
-                                <option value=" 8:00 Am">8:00 Am</option>
-                                <option value="8:30 Am">8:30 Am</option>
-                                <option value="9:00 Am">9:00 Am</option>
-                                <option value="9:30 Am">9:30 Am</option>
-                                <option value=" 10:00 Am">10:00 Am</option>
-                                <option value="  10:30 Am">10:30 Am</option>
-                                <option value="11:00 Am">11:00 Am</option>
-                                <option value=" 11:30 Am">11:30 Am</option>
-                                <option value="12:00 Pm">12:00 Pm</option>
-                                <option value=" 12:30 Pm">12:30 Pm</option>
-                                <option value="1:00 Pm">1:00 Pm</option>
-                                <option value="1:30 Pm">1:30 Pm</option>
-                                <option value=" 2:00 Pm">2:00 Pm</option>
-                                <option value=" 2:30 Pm">2:30 Pm</option>
-                                <option value="  3:00 Pm">3:00 Pm</option>
-                                <option value=" 3:30 Pm">3:30 Pm</option>
-                                <option value="4:00 Pm">4:00 Pm</option>
-                                <option value=" 4:30 Pm">4:30 Pm</option>
-                              </select>
-                            </div>
-                          </div>
-
-                          <div class="sm:col-span-3">
-                            <label
                               for="email"
                               class="block text-sm font-medium leading-6 text-gray-900"
                             >
@@ -526,8 +483,8 @@ function MoreDetails() {
                             </label>
                             <div class="mt-2">
                               <textarea
-                                onChange={(e) => setEmail(e.target.value)}
-                                value={email}
+                                onChange={(e) => setReason(e.target.value)}
+                                value={reason}
                                 type="email"
                                 autocomplete="email"
                                 class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
@@ -545,15 +502,12 @@ function MoreDetails() {
                             <input
                               name="push-notifications"
                               type="date"
+                              value={selectedDate}
+                              onChange={(e) => setSelectedDate(e.target.value)}
                               class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none sm:text-sm sm:leading-6"
                             />
                           </div>
                         </div>
-
-                        <p className="pt-10">
-                          <span className="bold">Selected Date:</span>{" "}
-                          {selectedDate.toDateString()}
-                        </p>
                       </>
                     )}
                     <div class="mt-6 flex items-center justify-end gap-x-6">

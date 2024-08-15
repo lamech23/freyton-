@@ -8,7 +8,7 @@ const{
 const { verifyToken } = require('../middlleware/token')
 
 
-router.post('/',verifyToken, CreateClientInfo)
+router.post('/', CreateClientInfo)
 router.get('/appointment/:id',verifyToken, gettingClientInfo)
 
 module.exports=router

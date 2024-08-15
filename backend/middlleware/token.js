@@ -31,6 +31,7 @@ const verifyToken = (req, res, next) => {
   if (!req.failedAttempts) {
     req.failedAttempts = 0;
   }
+  console.log(authorization);
 
   if (!authorization) {
     return res.status(401).json({ error: "Authorization token required" });

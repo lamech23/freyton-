@@ -8,10 +8,24 @@ const Tours = db.define(
     selectedDate: {
       type: DataTypes.STRING,
     },
-
-    time: {
+    name: {
       type: DataTypes.STRING,
     },
+    email: {
+      type: DataTypes.STRING,
+    },
+    phoneNumber:{
+      type: DataTypes.STRING,
+
+    },
+
+    gender: {
+      type: DataTypes.STRING,
+    },
+    reason: {
+      type: DataTypes.STRING,
+    },
+   
   },
   {
     freezeTablesName: true,
