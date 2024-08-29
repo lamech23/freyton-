@@ -39,16 +39,16 @@ function FinalReport() {
   const allPayments = (tenantId) => {
     const totalPayments =
       payments &&
-      Object.values(payments).map((paymentData) => {
-        return Object.values(paymentData)
-          .filter((item) => item.tenantId == tenantId)
-          .reduce((prev, next) => prev + Number(next.amount), 0);
-      }).reduce((prev, next) => prev + next, 0); 
-  
+      Object.values(payments)
+        .map((paymentData) => {
+          return Object.values(paymentData)
+            .filter((item) => item.tenantId == tenantId)
+            .reduce((prev, next) => prev + Number(next.amount), 0);
+        })
+        .reduce((prev, next) => prev + next, 0);
+
     return totalPayments;
   };
-  
-  console.log(allPayments(19));
 
   let totalSum = finalRentSum + finalWaterBillSum + finalBalanceSum;
   let totalSumWithCommision = Math.floor((10 / 100) * totalSum);
@@ -116,7 +116,7 @@ function FinalReport() {
                   <th class="text-left text-sm text-white px-4 lg:py-2  border-2  ">
                     Amount Paid
                   </th>
-                  
+
                   <th class="text-left text-sm text-white px-4 lg:py-2  border-2  ">
                     Prev Balance
                   </th>
@@ -149,14 +149,12 @@ function FinalReport() {
                         {metaDeta.rentPaymentDate}
                       </td>
 
-
                       <td class="text-gray-700 px-4 py-2">
                         {allPayments(metaDeta.id)}
                       </td>
                       <td class="text-gray-700 px-4 py-2">
                         {metaDeta.previousBalance}
                       </td>
-
 
                       <td
                         className={`
@@ -167,8 +165,13 @@ function FinalReport() {
                       </td>
 
                       <td class="text-gray-700 px-4 py-2">
-
-                      <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>                    </td>
+                        <textarea
+                          id="message"
+                          rows="4"
+                          class="block p-2.5 w-full text-sm  bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          placeholder="Add comment ..."
+                        ></textarea>{" "}
+                      </td>
                     </tr>
                   </tbody>
                 ))}

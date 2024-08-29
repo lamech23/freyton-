@@ -50,7 +50,6 @@ function MoreDetails() {
     }
   };
 
-
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("credentials"));
     if (user) setClient_id(user.id);
@@ -64,29 +63,27 @@ function MoreDetails() {
     // const formData = new FormData()
     // formData.append('client_id', client_id)
     try {
-      
-        // const response = await axios.post("https://winton.freytonhomes.com/client", {
-        const response = await axios.post("http://localhost:4000/client", {
-          name: name,
-          selectedDate: selectedDate,
-          email: email,
-          phoneNumber: phoneNumber,
-          gender: gender,
-          client_id: client_id,
-          reason: reason,
-        });
+      // const response = await axios.post("https://winton.freytonhomes.com/client", {
+      const response = await axios.post("http://localhost:4000/client", {
+        name: name,
+        selectedDate: selectedDate,
+        email: email,
+        phoneNumber: phoneNumber,
+        gender: gender,
+        client_id: client_id,
+        reason: reason,
+      });
 
-        if (response) {
-          setName("");
-          setEmail("");
-          setPhoneNumber("");
-          setReason("");
-          setGender("");
-          setSelectedDate("");
+      if (response) {
+        setName("");
+        setEmail("");
+        setPhoneNumber("");
+        setReason("");
+        setGender("");
+        setSelectedDate("");
 
-          toast.success("created successfully ")
-        }
-      
+        toast.success("created successfully ");
+      }
     } catch (error) {
       console.log(error);
     }

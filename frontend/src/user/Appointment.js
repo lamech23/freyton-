@@ -30,8 +30,6 @@ function Appointment() {
     
   }
 
-
-  console.log(appointment)
   const events = appointment.map((appointments) => ({
     start: moment(appointments?.createdAt).toDate(),
     end: moment(appointments?.createdAt).toDate(),

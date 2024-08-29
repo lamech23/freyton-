@@ -103,7 +103,7 @@ const signupUser = async (req, res) => {
         to: user.email,
         subject: "Confirmation email  for your account.",
         html:
-          " Hello there sir/ madam " +
+          " Hello there sir/ madam" +
           `<p>You are reciving this email because  you request to be  part  of our application. Using your email and this  password ${password} you can login and  reset your password .</p> :\n`,
       };
       // end of else
@@ -135,10 +135,11 @@ const getAllUsers = async (req, res) => {
   const offset = (page - 1) * page_size;
   const pageNumbers = [];
 
+
   const user = await users.findAndCountAll({
     offset: offset,
     limit: page_size,
-    // order: req.query.sort ? sqs.sort(req.query.sort) : [["id", "desc"]],
+    order: req.query.sort ? sqs.sort(req.query.sort) : [["id", "desc"]],
     include: {
       model: agentManagmentTable,
       as: "agent",
@@ -148,6 +149,12 @@ const getAllUsers = async (req, res) => {
       },
     },
   });
+
+  const totalPages = Math.ceil(user.count / page_size);
+
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i);
+  }
 
   res.status(200).json({
     user,

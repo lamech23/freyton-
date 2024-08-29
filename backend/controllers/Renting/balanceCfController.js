@@ -111,7 +111,6 @@ const fetchRecentBalance = async (req, res) => {
         ).format("MM");
 
         const currentMonth = moment().format("MM");
-      
 
         const isNewMonth = currentMonth !== latestPaymentMonth;
 
@@ -119,17 +118,12 @@ const fetchRecentBalance = async (req, res) => {
           ? paymentOne - Number(tenants.payableRent)
           : paymentOne;
 
-
-        console.log(amount, "this amount ")
-
-        if (amount == 0 ) {
-           tenantRegistration.update(
+        if (amount == 0) {
+          tenantRegistration.update(
             { previousBalance: 0 },
 
-        { where: { id: tenant.id } }
-
-          )
-
+            { where: { id: tenant.id } }
+          );
         }
 
         cron.schedule("* * 5 * *", () => {

@@ -2,13 +2,12 @@ const Details = require("../models/UploadModals.js");
 const Tours = require("../models/TourRequestModel.js");
 const nodemailer = require("nodemailer");
 const users = require("../models/UserModels.js");
-const fs = require("fs");
 const imageUrl = require("../models/imageModel.js");
 const agentManagmentTable = require("../models/agentManagment.js");
-// for landing page
 const cloudinary = require("cloudinary").v2;
 const dotenv = require("dotenv");
 dotenv.config();
+const { query, validationResult } = require('express-validator');
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -220,6 +219,13 @@ const createDetails = async (req, res) => {
     user_id: user_id,
     details_id: imageUrl.id,
   };
+
+  console.log(query, "for validation ");
+
+  const result = validationResult(req);
+  if (result.isEmpty()) {
+    return res.send(`Hello, ${req.query.person}!`);
+  }
 
   try {
     const userInfo = await users.findOne({ where: { id: user_id } });
@@ -438,7 +444,6 @@ const getRelevantAgentToAhouse = async (req, res) => {
     }
   } catch (error) {}
 };
-
 
 module.exports = {
   createDetails,

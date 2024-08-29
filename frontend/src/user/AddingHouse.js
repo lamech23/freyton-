@@ -25,6 +25,8 @@ function AddingHouse() {
   const [completedSteps, setCompletedSteps] = useState([]);
   const steps = ["Step 1", "Step 2", "Step 3"];
 
+  
+
   const nextStep = () => {
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
@@ -188,6 +190,20 @@ function AddingHouse() {
                   </label>
                   <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                     <div class="text-center">
+                    {image.length > 0 ? (
+
+                    image.map((img, index) => (
+                      <div className="flex flex-row  ">
+
+                        <img
+                          key={index}
+                          src={URL.createObjectURL(img)}
+                          alt={`uploaded-img-${index}`}
+                          className="  w-full h-32 object-cover"
+                        />
+                        </div>
+                      ))
+                    ) : (
                       <svg
                         class="mx-auto h-12 w-12 text-gray-300"
                         viewBox="0 0 24 24"
@@ -200,6 +216,7 @@ function AddingHouse() {
                           clip-rule="evenodd"
                         />
                       </svg>
+                    )}
                       <div class="mt-4 flex text-sm leading-6 text-gray-600">
                         <label
                           for="file-upload"

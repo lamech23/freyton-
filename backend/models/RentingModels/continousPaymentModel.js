@@ -7,9 +7,11 @@ const continousPayments = db.define(
   {
     amount: {
       type: DataTypes.STRING,
+      default : 0
+
     },
     paymentType: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
     },
     dateTime: {
       type: DataTypes.STRING,

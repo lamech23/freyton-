@@ -7,6 +7,7 @@ function Notice() {
   console.log(state);
   const [email] = useState(state);
   const [message, setMessage]=useState("")
+  const [noticeType, setNoticeType]=useState("")
   return (
     <>
       <section class="bg-gray-100">
@@ -40,6 +41,24 @@ function Notice() {
                       value={email}
                       id="email"
                     />
+                  </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 sm:grid-cols-1">
+                  <div>
+                    <label class="sr-only" for="email">
+                      type
+                    </label>
+                    <select
+                      class="w-full rounded-lg border border-gray-200 p-3 text-sm"
+                      placeholder="Email address"
+                      type="email"
+                      value={email}
+                      id="email"
+                    >
+                      <option selected  > Select Notice Type  </option>
+                      <option value="eviction" > Eviction  </option>
+                      <option value="news" > News</option>
+                       </select>
                   </div>
                 </div>
 

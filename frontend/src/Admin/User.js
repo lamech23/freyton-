@@ -28,9 +28,6 @@ function User() {
     };
   }, []);
 
-  // testing purposes  only
-
-  // get the instance  of the two  userId and  houseId
   const handleHouseSelection = (agentId, houseId) => {
     setAgent({
       agentId,
@@ -173,10 +170,16 @@ function User() {
                 <th class="text-left text-sm text-white px-4 py-1">id</th>
                 <th class="text-left text-sm text-white  px-4 py-1">Email</th>
                 <th class="text-left text-sm text-white  px-4 py-1">Role</th>
-                <th class="text-left text-sm text-white  px-4 py-1">House Managing </th>
-                <th class="text-left text-sm text-white  px-4 py-1">Approval Status </th>
+                <th class="text-left text-sm text-white  px-4 py-1">
+                  House Managing{" "}
+                </th>
+                <th class="text-left text-sm text-white  px-4 py-1">
+                  Approval Status{" "}
+                </th>
                 <th class="text-left text-sm text-white  px-4 py-1">Status</th>
-                <th class="text-left text-sm text-white  px-4 py-1">Assign House</th>
+                <th class="text-left text-sm text-white  px-4 py-1">
+                  Assign House
+                </th>
                 <th class="text-left text-sm text-white  px-4 py-1">Actions</th>
               </tr>
             </thead>
@@ -190,14 +193,19 @@ function User() {
 
                         <td class=" px-4 py-2">{allUsers.email}</td>
                         <td class=" px-4 py-2">{allUsers.role}</td>
-                        <td class=" px-4 py-2">{allUsers?.agent[0]?.house?.houseName}</td>
-                        <td class=" px-4 py-2"
+                        <td class=" px-4 py-2">
+                          {allUsers?.agent[0]?.house?.houseName}
+                        </td>
+                        <td
+                          class=" px-4 py-2"
                           style={{ color: allUsers.verified ? "green" : "red" }}
                         >
                           {allUsers.verified ? "Verified" : "Unverified"}
                         </td>
 
-                        <td class=" px-4 py-2">                         <span>
+                        <td class=" px-4 py-2">
+                          {" "}
+                          <span>
                             {allUsers.Active === "active" ? (
                               <button
                                 type="button"
@@ -217,55 +225,54 @@ function User() {
                                 inActive
                               </button>
                             ) : null}
-                          </span></td>
+                          </span>
+                        </td>
 
                         <td class=" px-4 py-2">
                           {allUsers.role == "agent" ? (
                             <div className="flex">
-                            <select
-                               class="flex-shrink flex-grow  leading-normal w-4 flex-1 border border-l-0 h-7 border-grey-light rounded-lg rounded-l-none px-3 relative focus:outline-none"
-                              onChange={(e) =>
-                                handleHouseSelection(
-                                  allUsers.id,
-                                  e.target.value
-                                )
-                              }
-                            >
-                              <option value="">House</option>
-                              {house &&
-                                house
-                                  .filter((h) => h.type === "renting")
-                                  .map(
-                                    (h, index) =>
-                                      !allUsers?.agent[0]?.house?.houseName.includes(
-                                        h.houseName
-                                      ) && (
-                                        <option key={index} value={h.id}>
-                                          {h.houseName}
-                                        </option>
-                                      )
-                                  )}
-                            </select>
-                            <div>
-                            {allUsers.role == "agent" ? (
-                              <button
-                                onClick={handleSave}
-                                type="submit"
-                                class="text-white bg-green-400 mx-2 focus:outline-none focus:ring dark:focus:ring-green-200  font-medium rounded-lg text-sm px-2 py-1 text-center me-2 mb-2"
+                              <select
+                                class="flex-shrink flex-grow  leading-normal w-4 flex-1 border border-l-0 h-7 border-grey-light rounded-lg rounded-l-none px-3 relative focus:outline-none"
+                                onChange={(e) =>
+                                  handleHouseSelection(
+                                    allUsers.id,
+                                    e.target.value
+                                  )
+                                }
                               >
-                                Assign
-                              </button>
-                            ) : null}
-                          </div>
+                                <option value="">House</option>
+                                {house &&
+                                  house
+                                    .filter((h) => h.type === "renting")
+                                    .map(
+                                      (h, index) =>
+                                        !allUsers?.agent[0]?.house?.houseName.includes(
+                                          h.houseName
+                                        ) && (
+                                          <option key={index} value={h.id}>
+                                            {h.houseName}
+                                          </option>
+                                        )
+                                    )}
+                              </select>
+                              <div>
+                                {allUsers.role == "agent" ? (
+                                  <button
+                                    onClick={handleSave}
+                                    type="submit"
+                                    class="text-white bg-green-400 mx-2 focus:outline-none focus:ring dark:focus:ring-green-200  font-medium rounded-lg text-sm px-2 py-1 text-center me-2 mb-2"
+                                  >
+                                    Assign
+                                  </button>
+                                ) : null}
+                              </div>
                             </div>
                           ) : (
                             <p className="">N/A</p>
                           )}
                         </td>
-                
 
                         <td class=" px-4 py-2 flex flex-row justify-center items-start  gap-2">
-                     
                           <Link
                             to={`/UpdateUser/${allUsers.id}`}
                             type="button"
@@ -293,7 +300,7 @@ function User() {
                             state={allUsers.email}
                             class="text-white  bg-green-400 focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-200 font-medium rounded-lg text-sm px-2 py-1 text-center me-2 mb-2"
                           >
-                            Notice 
+                            Notice
                           </Link>{" "}
                         </td>
                       </tr>
@@ -302,32 +309,32 @@ function User() {
               )}
           </table>
           <div className="flex flex-row justify-center items-center  gap-4 mt-10">
-        <button className="border p-2 " onClick={handleprev}>
-          prev
-        </button>
+            <button className="border p-2 " onClick={handleprev}>
+              prev
+            </button>
 
-        <div className="flex flex-row justify-center items-center">
-          {pagination?.totalPages?.map((number) => (
-            <div key={number} className="">
-              <a className="page-link ">
-                <p
-                  className={`flex flex-row gap-4 border p-2 cursor-pointer ${
-                    pageNum == number ? "bg-teal-600" : "bg-white"
-                  }
+            <div className="flex flex-row justify-center items-center">
+              {pagination?.totalPages?.map((number) => (
+                <div key={number} className="">
+                  <a className="page-link ">
+                    <p
+                      className={`flex flex-row gap-4 border p-2 cursor-pointer ${
+                        pageNum == number ? "bg-teal-600" : "bg-white"
+                      }
               `}
-                >
-                  {" "}
-                  {number}
-                </p>
-              </a>
+                    >
+                      {" "}
+                      {number}
+                    </p>
+                  </a>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        <button className="border p-2 " onClick={handleNext}>
-          next
-        </button>
-      </div>
+            <button className="border p-2 " onClick={handleNext}>
+              next
+            </button>
+          </div>
         </div>
       </div>
       <ToastContainer

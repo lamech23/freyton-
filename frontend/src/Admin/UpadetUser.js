@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import "../css/admin.css";
 import { ToastContainer, toast } from "react-toastify";
 import { api } from "../utils/Api";
@@ -10,7 +10,6 @@ function UpadetUser() {
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
   const id = useLocation().pathname.split("/")[2];
- 
 
   const elevetUser = async (e) => {
     const response = await api(`/Users/single-user/${id}`, "GET", {}, {});
@@ -33,10 +32,6 @@ function UpadetUser() {
     );
 
     if (response) {
-      // let user = JSON.parse(localStorage.getItem("credentials"));
-      // user.email = email;
-      // user.role = role;
-      // localStorage.setItem("credentials", JSON.stringify(user));
       toast.success("updated successfully");
     }
   };
