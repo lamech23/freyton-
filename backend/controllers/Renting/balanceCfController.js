@@ -89,7 +89,8 @@ const fetchRecentBalance = async (req, res) => {
         .filter((user) => user.tenantId === tenant.id)
         .map((arrear) => {
           const arrears = arrear.amount;
-          const firstPay = firstPayment;
+          const firstPay =
+            typeof firstPayment === "undefined" ? 0 : firstPayment;
           const rent = Number(tenant.payableRent);
           const prevAmount = Number(tenant.previousBalance);
           const bill = waterBill;
