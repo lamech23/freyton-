@@ -8,21 +8,19 @@ function WaterBill() {
   let houseId = useLocation().pathname.split("/")[3];
 
   const tenant = useLocation().state;
+  const getWaterRates = async () => {
+    try {
+      const res = await api(`/water/fetchWater/${houseId}`, "GET", {}, {});
+      setGetWater(res?.getWater);
+    } catch (error) {
+      toast.error("water rates not found " || error.massage);
+    }
+  };
 
   useEffect(() => {
-    const getWaterRates = async () => {
-      try {
-        const res = await api(`/water/fetchWater/${houseId}`, "GET", {}, {});
-        setGetWater(res?.getWater);
-      } catch (error) {
-        toast.error("water rates not found " || error.massage);
-      }
-    };
     getWaterRates();
   }, []);
-
-  const houseName = getWater[0].house.houseName;
-
+  const houseName = getWater.at(0)?.house?.houseName;
   const waterUnits = getWater
     ?.map((house) => {
       return house.price;
@@ -32,11 +30,12 @@ function WaterBill() {
     <div className=" mx-auto mt-20 px-4">
       <div className="flex flex-row  justify-around shadow-2xl ">
         <h1 className="mb-10 font-bold text-3xl uppercase text-green-500">
-           house-Water-Report
+          house-Water-Report
         </h1>
         <h1 className="mb-10 font-bold text-3xl uppercase text-green-500">
           House : {houseName}
-        </h1>
+        </h1>{" "}
+        console.log(houseName, "this water ");
       </div>
 
       <div className="flex flex-col items-center">
