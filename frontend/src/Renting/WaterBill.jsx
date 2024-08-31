@@ -35,7 +35,6 @@ function WaterBill() {
         <h1 className="mb-10 font-bold text-3xl uppercase text-green-500">
           House : {houseName}
         </h1>{" "}
-        console.log(houseName, "this water ");
       </div>
 
       <div className="flex flex-col items-center">
